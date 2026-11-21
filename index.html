@@ -6,7 +6,7 @@
 <title>Touchline Manager</title>
 <style>
 :root{--bg:#101b16;--panel:#182820;--line:#42604b;--green:#9bd66b;--cream:#e5e2c6;--muted:#a8b39e;--red:#e28b72;--gold:#e4ca72;--blue:#8eb8d8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:'Courier New',monospace;font-size:14px;line-height:1.45}.wrap{max-width:820px;margin:auto;padding:10px}.mast{border:2px solid var(--green);padding:12px;text-align:center;background:#0b130f}.mast h1{font-size:clamp(23px,6vw,36px);letter-spacing:2px;color:var(--green);margin:0}.mast small{color:var(--muted);letter-spacing:3px}.scorebar{display:flex;justify-content:space-between;gap:5px;flex-wrap:wrap;margin:9px 0;padding:9px;border:1px solid var(--line);background:#142119;color:var(--green);font-weight:bold}.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:9px 0}.tabs button,button{font: bold 12px 'Courier New';border:1px solid var(--green);background:#1c3024;color:var(--cream);padding:10px 5px;cursor:pointer}.tabs button.active,button.primary{background:var(--green);color:#102015}button:disabled{opacity:.35}.panel{border:1px solid var(--line);background:var(--panel);padding:12px;margin:9px 0}.panel h2{font-size:16px;color:var(--green);margin:0 0 9px;border-bottom:1px dashed var(--line);padding-bottom:7px}.muted{color:var(--muted)}.big{font-size:22px;color:var(--gold);font-weight:bold}.row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dotted #3a5141}.row:last-child{border:0}.btnrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:105px}.table{width:100%;border-collapse:collapse;font-size:11px}.table th,.table td{text-align:right;padding:6px 3px;border-bottom:1px solid var(--line);white-space:nowrap}.table th:first-child,.table td:first-child{text-align:left;white-space:normal}.table th{color:var(--green)}.table tr.you{color:var(--gold);font-weight:bold}.player{display:grid;grid-template-columns:minmax(0,1fr) 42px 55px;gap:5px;padding:7px 0;border-bottom:1px dotted var(--line);align-items:center}.player button{padding:5px}.player small{color:var(--muted);display:block}.notice{color:var(--gold);padding:8px;border:1px dashed var(--gold);margin-top:8px}.good{color:var(--green)}.bad{color:var(--red)}.hidden{display:none}.footer{text-align:center;color:#728477;font-size:11px;padding:15px}.clubgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.club{padding:12px;text-align:left}.club strong{display:block;color:var(--green)}.club span{font-size:11px;color:var(--muted)}.pill{display:inline-block;border:1px solid var(--line);padding:2px 6px;color:var(--muted);font-size:11px}.commentary{background:#0d1711;border:1px solid var(--line);padding:9px;max-height:270px;overflow:auto}.commentary p{margin:5px 0;padding:7px 6px;border-bottom:1px dotted #314638}.commentary p.goal{color:var(--green);font-weight:bold;background:#14251a}.commentary p.miss{color:var(--gold)}.commentary p.whistle{color:var(--muted);font-style:italic}.soundrow{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.soundrow button{flex:1;min-width:125px}.matchstage{background:#0b1710;border:1px solid var(--line);padding:8px;margin:8px 0}.matchstage canvas{display:block;width:100%;height:auto;aspect-ratio:640/420;background:#183d25;border:1px solid #71915a}.matchcaption{min-height:24px;color:var(--gold);text-align:center;padding:6px 2px;font-weight:bold}.incidentbuttons{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}.incidentbuttons button{flex:1;min-width:100px}.pitchhint{font-size:11px;color:var(--muted);text-align:center}.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.stat{background:#122019;padding:8px;border:1px solid var(--line)}.stat b{display:block;color:var(--gold);font-size:18px}.selectline{width:100%;padding:9px;background:#102018;color:var(--cream);border:1px solid var(--line);font:13px 'Courier New'}.smallbtn{padding:5px 7px}.marketitem{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 0;border-bottom:1px dotted var(--line)}.end{text-align:center;padding:15px;color:var(--gold)}@media(min-width:600px){.twocol{display:grid;grid-template-columns:1fr 1fr;gap:9px}}
-</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE</small></header><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · TOUCHLINE MANAGER · OFFLINE EDITION · V18 PITCH & SOUND REPAIR</div></div>
+</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE</small></header><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · TOUCHLINE MANAGER · OFFLINE EDITION · V20 ORIGINAL PITCH & SAVE FIX</div></div>
 <script>
 'use strict';
 const CLUBS=[['AFC Albion',68,22000],['Bristol Rovers',65,18000],['Cwm Valley',61,14000],['Dunford Town',60,13000],['Eastborough',58,12000],['Fleet Athletic',57,11000],['Glenchester',55,10000],['Haversham',53,9000]];
@@ -195,9 +195,9 @@ function makeBallPath(event){
  if(event.type==='goal'||event.type==='miss'){
   // Goal is always at world-right. X() mirrors pitch, goal, players and ball
   // together when the away side attacks or after the interval.
-  const targetX=604;
+  const targetX=event.type==='goal'?604:(event.shot==='saved'?556:568);
   const goalY=rand(211,249);
-  const targetY=event.type==='goal'?goalY:(event.shot==='saved'?rand(218,260):(Math.random()<.5?rand(150,185):rand(292,330)));
+  const targetY=event.type==='goal'?goalY:(event.shot==='saved'?rand(232,250):(Math.random()<.5?rand(150,185):rand(292,330)));
   const dist=Math.hypot(targetX-last.x,targetY-last.y),shotTime=Math.max(1.65,Math.min(3.5,dist/54));
   steps.push({from:nodes.length-1,to:null,target:{x:targetX,y:targetY},t0:cursor,t1:cursor+shotTime,holdEnd:cursor+shotTime,kind:'shot'});cursor+=shotTime;
  }else{
@@ -243,27 +243,27 @@ function drawPitchFrame(progress,event,phase='attack'){
   linePath(points);ctx.strokeStyle='#173b20';ctx.lineWidth=weight+3;ctx.lineJoin='miter';ctx.lineCap='square';ctx.stroke();
   linePath(points);ctx.strokeStyle='#f3efd9';ctx.lineWidth=weight;ctx.lineJoin='miter';ctx.lineCap='square';ctx.stroke();
  }
- // Original 1984 half-pitch markings, measured against the approved reference image.
- // Penalty area: far-side diagonal, vertical near edge, bottom edge and outer upright.
- strokePixelPath([[399,86],[489,229],[489,367]],3);
- strokePixelPath([[489,367],[597,367],[597,274]],3);
- // The angled upper rail meets the rear upper corner of the goal/net.
- strokePixelPath([[521,86],[575,170]],3);
- // Six-yard box: a closed, square-cornered rectangle joined to the goal line.
- strokePixelPath([[489,229],[575,229],[575,274],[489,274],[489,229]],3);
- // Penalty spot is a small square, exactly as in the C64 display (not a circle).
+ // Original 1984 half-pitch markings, mapped point-for-point from the approved reference.
+ // Reference mapping: source image x=28..1030 -> canvas x=30..612;
+ // source image y=168..598 -> canvas y=86..367.
+ // Penalty area: diagonal from far touchline, vertical edge, bottom edge,
+ // then the short upright at the outer corner.
+ strokePixelPath([[399,86],[488,229],[488,367]],3);
+ strokePixelPath([[488,367],[612,367]],3);
+ // Far-side diagonal meets the rear upper corner of the goal frame.
+ strokePixelPath([[522,86],[577,169]],3);
+ // Six-yard box: correctly joins the penalty-area edge to the goal line.
+ strokePixelPath([[488,229],[577,229],[577,274],[488,274],[488,229]],3);
+ // Small square penalty mark, matching the original raster display.
  ctx.fillStyle='#f4f0dc';ctx.fillRect(X(500)-2,239,5,5);
- // Goal depth: front mouth, rear frame and connecting side rails.
- const gx=575,gBack=612,gTop=170,gBottom=274;
- // Dark pixel shadow gives the white goal frame a raised, 3D edge.
+ // Goal frame and net: front mouth at x=574, rear frame at x=612.
+ const gx=577,gBack=612,gTop=169,gBottom=274;
  ctx.beginPath();ctx.moveTo(X(gx),gTop);ctx.lineTo(X(gBack),gTop);ctx.lineTo(X(gBack),gBottom);ctx.lineTo(X(gx),gBottom);
  ctx.strokeStyle='#173b20';ctx.lineWidth=8;ctx.lineJoin='miter';ctx.stroke();
  ctx.strokeStyle='#f7f2df';ctx.lineWidth=4;ctx.stroke();
- // Front and rear posts are deliberately crisp and square.
  ctx.beginPath();ctx.moveTo(X(gx),gTop);ctx.lineTo(X(gx),gBottom);ctx.moveTo(X(gBack),gTop);ctx.lineTo(X(gBack),gBottom);
  ctx.moveTo(X(gx),gTop);ctx.lineTo(X(gBack),gTop);ctx.moveTo(X(gx),gBottom);ctx.lineTo(X(gBack),gBottom);
  ctx.strokeStyle='#fff9e9';ctx.lineWidth=3;ctx.stroke();
- // Net grid runs inside the rectangular goal frame.
  ctx.strokeStyle='rgba(247,242,223,.82)';ctx.lineWidth=1;
  for(let i=1;i<7;i++){
   const x=gx+(gBack-gx)*i/7;
@@ -273,8 +273,6 @@ function drawPitchFrame(progress,event,phase='attack'){
   const y=gTop+(gBottom-gTop)*i/7;
   ctx.beginPath();ctx.moveTo(X(gx+2),y);ctx.lineTo(X(gBack-2),y);ctx.stroke();
  }
- // Goal-line and near-side field edge, aligned to the same mouth coordinates.
- ctx.beginPath();ctx.moveTo(X(gx),gTop);ctx.lineTo(X(gx),gBottom);ctx.strokeStyle='#fff9e9';ctx.lineWidth=3;ctx.stroke();
  // Score strip.
  const shownGoals=lastReport?.events?.filter(e=>e.type==='goal'&&e._shown)||[];
  const sh=shownGoals.filter(e=>e.side==='home').length,sa=shownGoals.filter(e=>e.side==='away').length;
@@ -333,7 +331,7 @@ function drawPitchFrame(progress,event,phase='attack'){
   let y=p.y+(ballY-p.y)*.035*u+Math.cos(now*.9+i)*2.2;
   sprite(X(x),y,scene?(scene.side==='home'?awayKit:homeKit):awayKit,i+1,-dir,now*1.9+i);
  });
- const keeperX=X(555),keeperY=245+(scene?Math.max(-9,Math.min(9,(ballY-245)*.12)):0);
+ const keeperWorldX=(event?.type==='miss'&&event.shot==='saved')?557:590;const keeperX=X(keeperWorldX),keeperY=245+(scene?Math.max(-9,Math.min(9,(ballY-245)*.12)):0);
  sprite(keeperX,keeperY,['#e5c34c','#202020'],1,-dir,now*2.1,true);
  // Square ball settles at the receiving player's boots before the next kick.
  ctx.fillStyle='#fffef0';ctx.fillRect(Math.round(ballX-3),Math.round(ballY-3),6,6);ctx.strokeStyle='#242820';ctx.lineWidth=1;ctx.strokeRect(Math.round(ballX-3),Math.round(ballY-3),6,6);
@@ -356,7 +354,7 @@ async function runScene(event,token,index,total){
  }
  if(caption)caption.textContent=event.type==='goal'?`${String(event.minute).padStart(2,'0')}' — ATTACK BUILDING`:event.type==='miss'?`${String(event.minute).padStart(2,'0')}' — CHANCE DEVELOPING`:`${String(event.minute).padStart(2,'0')}' — PLAY MOVES FORWARD`;
  if(!event._scene)makeBallPath(event);
- const duration=Math.max(10500,event._scene.total*1000);
+ const duration=Math.max(10000,event._scene.total*1000);
  scheduleSceneKicks(event._scene,token,duration);
  await new Promise(resolve=>{let began=performance.now();function frame(now){if(token!==animationToken){resolve();return}let p=Math.min(1,(now-began)/duration);drawPitchFrame(p,event,'attack');if(p<1)requestAnimationFrame(frame);else resolve()}requestAnimationFrame(frame)});
  if(token!==animationToken)return;
