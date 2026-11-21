@@ -6,7 +6,7 @@
 <title>Touchline Manager 1984</title>
 <style>
 :root{--bg:#101b16;--panel:#182820;--line:#42604b;--green:#9bd66b;--cream:#e5e2c6;--muted:#a8b39e;--red:#e28b72;--gold:#e4ca72;--blue:#8eb8d8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:'Courier New',monospace;font-size:14px;line-height:1.45}.wrap{max-width:820px;margin:auto;padding:10px}.mast{border:2px solid var(--green);padding:12px;text-align:center;background:#0b130f}.mast h1{font-size:clamp(23px,6vw,36px);letter-spacing:2px;color:var(--green);margin:0}.mast small{color:var(--muted);letter-spacing:3px}.scorebar{display:flex;justify-content:space-between;gap:5px;flex-wrap:wrap;margin:9px 0;padding:9px;border:1px solid var(--line);background:#142119;color:var(--green);font-weight:bold}.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:9px 0}.tabs button,button{font: bold 12px 'Courier New';border:1px solid var(--green);background:#1c3024;color:var(--cream);padding:10px 5px;cursor:pointer}.tabs button.active,button.primary{background:var(--green);color:#102015}button:disabled{opacity:.35}.panel{border:1px solid var(--line);background:var(--panel);padding:12px;margin:9px 0}.panel h2{font-size:16px;color:var(--green);margin:0 0 9px;border-bottom:1px dashed var(--line);padding-bottom:7px}.muted{color:var(--muted)}.big{font-size:22px;color:var(--gold);font-weight:bold}.row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dotted #3a5141}.row:last-child{border:0}.btnrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:105px}.table{width:100%;border-collapse:collapse;font-size:11px}.table th,.table td{text-align:right;padding:6px 3px;border-bottom:1px solid var(--line);white-space:nowrap}.table th:first-child,.table td:first-child{text-align:left;white-space:normal}.table th{color:var(--green)}.table tr.you{color:var(--gold);font-weight:bold}.player{display:grid;grid-template-columns:minmax(0,1fr) 42px 55px;gap:5px;padding:7px 0;border-bottom:1px dotted var(--line);align-items:center}.player button{padding:5px}.player small{color:var(--muted);display:block}.notice{color:var(--gold);padding:8px;border:1px dashed var(--gold);margin-top:8px}.good{color:var(--green)}.bad{color:var(--red)}.hidden{display:none}.footer{text-align:center;color:#728477;font-size:11px;padding:15px}.clubgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.club{padding:12px;text-align:left}.club strong{display:block;color:var(--green)}.club span{font-size:11px;color:var(--muted)}.pill{display:inline-block;border:1px solid var(--line);padding:2px 6px;color:var(--muted);font-size:11px}.commentary{background:#0d1711;border:1px solid var(--line);padding:9px;max-height:270px;overflow:auto}.commentary p{margin:5px 0;padding:7px 6px;border-bottom:1px dotted #314638}.commentary p.goal{color:var(--green);font-weight:bold;background:#14251a}.commentary p.miss{color:var(--gold)}.commentary p.whistle{color:var(--muted);font-style:italic}.soundrow{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.soundrow button{flex:1;min-width:125px}.matchstage{background:#0b1710;border:1px solid var(--line);padding:8px;margin:8px 0}.matchstage canvas{display:block;width:100%;height:auto;aspect-ratio:640/360;background:#183d25;border:1px solid #71915a}.matchcaption{min-height:24px;color:var(--gold);text-align:center;padding:6px 2px;font-weight:bold}.incidentbuttons{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}.incidentbuttons button{flex:1;min-width:100px}.pitchhint{font-size:11px;color:var(--muted);text-align:center}.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.stat{background:#122019;padding:8px;border:1px solid var(--line)}.stat b{display:block;color:var(--gold);font-size:18px}.selectline{width:100%;padding:9px;background:#102018;color:var(--cream);border:1px solid var(--line);font:13px 'Courier New'}.smallbtn{padding:5px 7px}.marketitem{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 0;border-bottom:1px dotted var(--line)}.end{text-align:center;padding:15px;color:var(--gold)}@media(min-width:600px){.twocol{display:grid;grid-template-columns:1fr 1fr;gap:9px}}
-</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE · SECOND EDITION</small></header><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · OFFLINE EDITION · V3 ANIMATED MATCH</div></div>
+</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE · CLASSIC MATCH EDITION</small></header><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · OFFLINE EDITION · V6 ORIGINAL-STYLE MATCH</div></div>
 <script>
 'use strict';
 const CLUBS=[['AFC Albion',68,22000],['Bristol Rovers',65,18000],['Cwm Valley',61,14000],['Dunford Town',60,13000],['Eastborough',58,12000],['Fleet Athletic',57,11000],['Glenchester',55,10000],['Haversham',53,9000]];
@@ -18,8 +18,8 @@ const $=id=>document.getElementById(id);const money=n=>'£'+Math.round(n).toLoca
 function makePlayer(i,boost=0){let pos=POS[i%POS.length],skill=rnd(43,72)+boost;return{id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),name:FIRST[rnd(0,FIRST.length-1)]+' '+['Jones','Williams','Davies','Roberts','Lewis','Thomas','Morgan','Griffiths','Edwards','Rees'][rnd(0,9)],pos,skill:Math.min(88,skill),fitness:rnd(82,100),age:rnd(18,34),wage:rnd(90,230),value:Math.round(skill*skill*2.1/100)*100,selected:false,goals:0,apps:0,injury:0,form:5};}
 function makeSchedule(){let ids=[0,1,2,3,4,5,6,7],first=[];for(let r=0;r<7;r++){let games=[];for(let i=0;i<4;i++){let a=ids[i],b=ids[7-i];if((r+i)%2) [a,b]=[b,a];games.push([a,b]);}first.push(games);ids=[ids[0],ids[7],...ids.slice(1,7)];}return [...first,...first.map(g=>g.map(([a,b])=>[b,a]))];}
 function fresh(index){let teams=CLUBS.map((c,i)=>({id:i,name:c[0],strength:c[1],cash:c[2],pts:0,w:0,d:0,l:0,gf:0,ga:0,played:0}));let squad=Array.from({length:18},(_,i)=>makePlayer(i, index===2?0:Math.round((CLUBS[index][1]-61)/3)));squad.forEach((p,i)=>p.selected=i<11);return{clubIndex:index,teams,squad,week:1,season:1,cash:CLUBS[index][2],morale:65,tactic:'Balanced',history:[],schedule:makeSchedule(),market:[],last:null,totalGate:0};}
-function save(){try{localStorage.setItem('tm84_v3',JSON.stringify(game));localStorage.setItem('tm84_v2',JSON.stringify(game));}catch(e){}}
-function load(){try{let raw=localStorage.getItem('tm84_v3')||localStorage.getItem('tm84_v2');if(raw){game=JSON.parse(raw);if(!game.schedule)game.schedule=makeSchedule();return true}}catch(e){}return false}
+function save(){try{localStorage.setItem('tm84_v3',JSON.stringify(game));localStorage.setItem('tm84_v6',JSON.stringify(game));localStorage.setItem('tm84_v2',JSON.stringify(game));}catch(e){}}
+function load(){try{let raw=localStorage.getItem('tm84_v6')||localStorage.getItem('tm84_v3')||localStorage.getItem('tm84_v2');if(raw){game=JSON.parse(raw);if(!game.schedule)game.schedule=makeSchedule();return true}}catch(e){}return false}
 function me(){return game.teams[game.clubIndex]}function sortTable(){return [...game.teams].sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf)}function rank(){return sortTable().findIndex(t=>t.id===game.clubIndex)+1}function XI(){return game.squad.filter(p=>p.selected)}function strength(){let x=XI();if(!x.length)return 0;return Math.round(x.reduce((s,p)=>s+p.skill*(p.fitness/100)*(p.injury?0.35:1)*(p.form/5),0)/x.length)}
 function fixture(){return game.schedule[game.week-1].find(g=>g.includes(game.clubIndex));}function oppId(){let f=fixture();return f[0]===game.clubIndex?f[1]:f[0]}function isHome(){return fixture()[0]===game.clubIndex}
 function start(i){game=fresh(i);tab='club';save();render()}
@@ -110,77 +110,123 @@ function makeCommentary(m,selected){
  events.stats={homeShots,awayShots,homeOn,awayOn,homeMisses:events.filter(e=>e.type==='miss'&&e.side==='home').length,awayMisses:events.filter(e=>e.type==='miss'&&e.side==='away').length};
  return events;
 }
-function toggleSound(){soundEnabled=!soundEnabled;localStorage.setItem('tm84_sound',soundEnabled?'on':'off');let b=$('soundToggle');if(b)b.textContent='SOUND: '+(soundEnabled?'ON':'OFF')}
-function tone(ctx,frequency,start,duration,wave='square',volume=.045,endFrequency=null){let o=ctx.createOscillator(),g=ctx.createGain();o.type=wave;o.frequency.setValueAtTime(frequency,start);if(endFrequency)o.frequency.exponentialRampToValueAtTime(endFrequency,start+duration);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(volume,start+.012);g.gain.exponentialRampToValueAtTime(.0001,start+duration);o.connect(g);g.connect(ctx.destination);o.start(start);o.stop(start+duration+.02)}
-function soundWhistle(ctx,t){tone(ctx,1500,t,.22,'square',.025,2100);tone(ctx,1700,t+.16,.28,'square',.022,1200)}
-function soundGoal(ctx,t){[523,659,784,1047].forEach((f,i)=>tone(ctx,f,t+i*.105,.16,'square',.055));tone(ctx,784,t+.48,.32,'triangle',.035)}
-function soundMiss(ctx,t){tone(ctx,220,t,.16,'sawtooth',.04,145);tone(ctx,165,t+.18,.22,'sawtooth',.035,110)}
-function playOneSound(type){if(!soundEnabled)return;try{let AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;let ctx=new AC();ctx.resume().then(()=>{let t=ctx.currentTime+.03;if(type==='goal')soundGoal(ctx,t);else if(type==='miss')soundMiss(ctx,t);else soundWhistle(ctx,t);setTimeout(()=>ctx.close().catch(()=>{}),1200)}).catch(()=>{})}catch(e){}}
+// Offline 1980s match-day sound engine. Audio is synthesised locally; no downloads or network required.
+let audioCtx=null,crowdSource=null,crowdGain=null,crowdFilter=null,crowdPulse=null;
+function ensureAudio(){if(!soundEnabled)return null;try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;if(!audioCtx)audioCtx=new AC();if(audioCtx.state==='suspended')audioCtx.resume();return audioCtx}catch(e){return null}}
+function noiseBuffer(ctx,seconds=2){let n=Math.max(1,Math.floor(ctx.sampleRate*seconds)),b=ctx.createBuffer(1,n,ctx.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=Math.random()*2-1;return b}
+function tone(ctx,frequency,start,duration,wave='square',volume=.045,endFrequency=null){let o=ctx.createOscillator(),g=ctx.createGain();o.type=wave;o.frequency.setValueAtTime(frequency,start);if(endFrequency)o.frequency.exponentialRampToValueAtTime(Math.max(1,endFrequency),start+duration);g.gain.setValueAtTime(.0001,start);g.gain.exponentialRampToValueAtTime(volume,start+.012);g.gain.exponentialRampToValueAtTime(.0001,start+duration);o.connect(g);g.connect(ctx.destination);o.start(start);o.stop(start+duration+.03)}
+function startCrowd(){let ctx=ensureAudio();if(!ctx||crowdSource)return;let src=ctx.createBufferSource();src.buffer=noiseBuffer(ctx,3);src.loop=true;let filter=ctx.createBiquadFilter();filter.type='bandpass';filter.frequency.value=850;filter.Q.value=.65;let gain=ctx.createGain();gain.gain.value=.018;src.connect(filter);filter.connect(gain);gain.connect(ctx.destination);src.start();crowdSource=src;crowdFilter=filter;crowdGain=gain;let lfo=ctx.createOscillator(),lg=ctx.createGain();lfo.type='sine';lfo.frequency.value=.22;lg.gain.value=.004;lfo.connect(lg);lg.connect(gain.gain);lfo.start();crowdPulse=lfo}
+function stopCrowd(){if(crowdSource){try{crowdSource.stop()}catch(e){}crowdSource.disconnect();crowdSource=null}if(crowdPulse){try{crowdPulse.stop()}catch(e){}crowdPulse.disconnect();crowdPulse=null}if(crowdGain){crowdGain.disconnect();crowdGain=null}crowdFilter=null}
+function crowdRoar(){let ctx=ensureAudio();if(!ctx)return;startCrowd();let t=ctx.currentTime,src=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();src.buffer=noiseBuffer(ctx,2.2);src.loop=true;f.type='bandpass';f.frequency.setValueAtTime(950,t);f.frequency.linearRampToValueAtTime(1450,t+.55);f.frequency.linearRampToValueAtTime(780,t+2.8);f.Q.value=.55;g.gain.setValueAtTime(.001,t);g.gain.linearRampToValueAtTime(.16,t+.35);g.gain.setValueAtTime(.14,t+1.15);g.gain.exponentialRampToValueAtTime(.001,t+3.1);src.connect(f);f.connect(g);g.connect(ctx.destination);src.start(t);src.stop(t+3.15);for(let i=0;i<13;i++){let at=t+.22+i*.16+Math.random()*.22;tone(ctx,520+Math.random()*420,at,.22+Math.random()*.22,'sawtooth',.012+Math.random()*.012,300+Math.random()*300)}for(let i=0;i<18;i++)clap(ctx,t+.18+i*.13+Math.random()*.32)}
+function clap(ctx,t){let src=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();src.buffer=noiseBuffer(ctx,.12);f.type='highpass';f.frequency.value=1250;g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.035,t+.004);g.gain.exponentialRampToValueAtTime(.0001,t+.095);src.connect(f);f.connect(g);g.connect(ctx.destination);src.start(t);src.stop(t+.12)}
+function soundKick(){let ctx=ensureAudio();if(!ctx)return;let t=ctx.currentTime+.005;tone(ctx,105,t,.105,'sine',.085,42);tone(ctx,780,t,.025,'square',.018,180);}
+function soundWhistle(){let ctx=ensureAudio();if(!ctx)return;let t=ctx.currentTime+.02;tone(ctx,1500,t,.22,'sine',.035,2100);tone(ctx,1700,t+.16,.28,'sine',.03,1200)}
+function soundGoal(){let ctx=ensureAudio();if(!ctx)return;let t=ctx.currentTime+.02;[523,659,784,1047].forEach((f,i)=>tone(ctx,f,t+i*.105,.19,'square',.045));tone(ctx,784,t+.48,.32,'triangle',.035);crowdRoar()}
+function soundMiss(){let ctx=ensureAudio();if(!ctx)return;let t=ctx.currentTime+.02;tone(ctx,220,t,.16,'sawtooth',.035,145);tone(ctx,165,t+.18,.22,'sawtooth',.03,110)}
+function playOneSound(type){if(!soundEnabled)return;let ctx=ensureAudio();if(!ctx)return;if(type==='goal')soundGoal();else if(type==='miss')soundMiss();else if(type==='kick')soundKick();else soundWhistle()}
+function toggleSound(){soundEnabled=!soundEnabled;localStorage.setItem('tm84_sound',soundEnabled?'on':'off');let b=$('soundToggle');if(b)b.textContent='SOUND: '+(soundEnabled?'ON':'OFF');if(soundEnabled){ensureAudio();if(screenMode==='match')startCrowd()}else stopCrowd()}
 function renderMatchScreen(){
  let r=lastReport;if(!r)return;let m=r.mine;
- $('app').innerHTML=`<div class="scorebar"><span>${esc(m.home).toUpperCase()}</span><span>LIVE MATCH</span><span>${esc(m.away).toUpperCase()}</span></div><section class="panel"><h2>THE MATCH · WEEK ${Math.max(1,game.week-1)}</h2><div class="big" id="liveScore" style="text-align:center">0 - 0</div><div class="muted" id="liveMinute" style="text-align:center">KICK-OFF</div><div class="matchstage"><canvas id="matchCanvas" width="640" height="360" aria-label="Pixel-art football match animation"></canvas><div id="matchCaption" class="matchcaption">THE REFEREE BLOWS HIS WHISTLE</div><div class="soundrow"><button id="soundToggle" onclick="toggleSound()">SOUND: ${soundEnabled?'ON':'OFF'}</button><button onclick="skipToResults()">SKIP TO RESULTS</button></div></div><div class="commentary" id="liveCommentary"><p class="whistle">KICK-OFF! ${esc(m.home)} v ${esc(m.away)}.</p></div><div class="pitchhint">Watch the little players pass, run and shoot. The square ball travels from player to player.</div></section>`;
- drawPitchFrame(0,null);startLiveHighlights();
+ $('app').innerHTML=`<div class="scorebar"><span>${esc(m.home).toUpperCase()}</span><span>LIVE MATCH</span><span>${esc(m.away).toUpperCase()}</span></div><section class="panel"><h2>THE MATCH · WEEK ${Math.max(1,game.week-1)}</h2><div class="big" id="liveScore" style="text-align:center">0 - 0</div><div class="muted" id="liveMinute" style="text-align:center">KICK-OFF</div><div class="matchstage"><canvas id="matchCanvas" width="640" height="360" aria-label="Original-style pixel football match: tiny block players pass a square ball towards the goal"></canvas><div id="matchCaption" class="matchcaption">THE REFEREE BLOWS HIS WHISTLE</div><div class="soundrow"><button id="soundToggle" onclick="toggleSound()">SOUND: ${soundEnabled?'ON':'OFF'}</button></div></div><div class="commentary" id="liveCommentary"><p class="whistle">KICK-OFF! ${esc(m.home)} v ${esc(m.away)}.</p></div><div class="pitchhint">THE MATCH PLAYS AUTOMATICALLY — WATCH THE PLAYERS PASS, RUN AND SHOOT.</div></section>`;
+ drawPitchFrame(0,null,'idle');startLiveHighlights();
 }
 function renderResultsScreen(){
  let r=lastReport;if(!r)return;let stats=r.stats||{},m=r.mine;
  let eventRows=r.events.map(e=>{let cls=e.type==='goal'?'goal':e.type==='miss'?'miss':e.type==='whistle'?'whistle':'';let label=e.type==='goal'?'GOAL':e.type==='miss'?'MISS':e.type==='whistle'?'WHISTLE':e.type==='booking'?'BOOKING':'·';return `<p class="${cls}"><b>${String(e.minute).padStart(2,'0')}' ${label}</b> &nbsp;${esc(e.text)}</p>`}).join('');
- $('app').innerHTML=`<div class="scorebar"><span>${esc(me().name).toUpperCase()}</span><span>WEEK ${Math.max(1,game.week-1)} RESULTS</span><span>${money(game.cash)}</span></div><section class="panel"><h2>FULL-TIME RESULT</h2><div class="big" style="text-align:center">${esc(m.home)} ${m.gf} - ${m.ga} ${esc(m.away)}</div><div class="row"><span>Gate receipts</span><b>${money(r.gate)}</b></div><div class="row"><span>Weekly wages</span><b class="bad">-${money(r.wages)}</b></div><div class="statgrid"><div class="stat"><span class="muted">Shots</span><b>${stats.homeShots||0} - ${stats.awayShots||0}</b></div><div class="stat"><span class="muted">On target</span><b>${stats.homeOn||0} - ${stats.awayOn||0}</b></div><div class="stat"><span class="muted">Missed chances</span><b>${stats.homeMisses||0} - ${stats.awayMisses||0}</b></div><div class="stat"><span class="muted">League points</span><b>${me().pts}</b></div></div><h2 style="margin-top:12px">MATCH REPORT</h2><div class="commentary">${eventRows}</div><h2 style="margin-top:12px">OTHER RESULTS</h2>${r.results.map(x=>`<div class="row">${esc(x)}</div>`).join('')}<div class="btnrow"><button class="primary" onclick="returnToClub()">CONTINUE TO CLUB</button><button onclick="screenMode='match';render()">WATCH HIGHLIGHTS AGAIN</button></div></section>`;
+ $('app').innerHTML=`<div class="scorebar"><span>${esc(me().name).toUpperCase()}</span><span>WEEK ${Math.max(1,game.week-1)} RESULTS</span><span>${money(game.cash)}</span></div><section class="panel"><h2>FULL-TIME RESULT</h2><div class="big" style="text-align:center">${esc(m.home)} ${m.gf} - ${m.ga} ${esc(m.away)}</div><div class="row"><span>Gate receipts</span><b>${money(r.gate)}</b></div><div class="row"><span>Weekly wages</span><b class="bad">-${money(r.wages)}</b></div><div class="statgrid"><div class="stat"><span class="muted">Shots</span><b>${stats.homeShots||0} - ${stats.awayShots||0}</b></div><div class="stat"><span class="muted">On target</span><b>${stats.homeOn||0} - ${stats.awayOn||0}</b></div><div class="stat"><span class="muted">Missed chances</span><b>${stats.homeMisses||0} - ${stats.awayMisses||0}</b></div><div class="stat"><span class="muted">League points</span><b>${me().pts}</b></div></div><h2 style="margin-top:12px">MATCH REPORT</h2><div class="commentary">${eventRows}</div><h2 style="margin-top:12px">OTHER RESULTS</h2>${r.results.map(x=>`<div class="row">${esc(x)}</div>`).join('')}<div class="btnrow"><button class="primary" onclick="returnToClub()">CONTINUE TO CLUB</button></div></section>`;
 }
 function returnToClub(){screenMode='manager';lastReport=null;tab='club';render()}
 function skipToResults(){if(matchTimer)clearTimeout(matchTimer);animationToken++;screenMode='results';render()}
-function beginMatchPresentation(){playOneSound('whistle')}
+function beginMatchPresentation(){if(soundEnabled){ensureAudio();startCrowd();playOneSound('whistle')}}
 let incidentTimer=null,animationToken=0;
 function resetPitch(){animationToken++;if(incidentTimer)clearTimeout(incidentTimer);drawPitchFrame(0,null);let c=$('matchCaption');if(c)c.textContent='READY FOR THE HIGHLIGHTS'}
-function drawPitchFrame(progress,event){
- let canvas=$('matchCanvas');if(!canvas)return;let ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);
- ctx.fillStyle='#08110c';ctx.fillRect(0,0,w,h);
- // C64-inspired stand and scoreboard strip.
- ctx.fillStyle='#263a2d';ctx.fillRect(0,0,w,42);for(let i=0;i<180;i++){ctx.fillStyle=['#d4c47a','#56775a','#9b9b78','#314b37'][i%4];ctx.fillRect((i*37)%w,5+(i*13)%29,4,3)}
- ctx.fillStyle='#d5d07b';ctx.fillRect(0,42,w,8);ctx.fillStyle='#785b39';ctx.font='bold 19px Courier New';ctx.textAlign='center';ctx.fillText('CWM VALLEY  •  MATCH DAY',w/2,36);
- // One attacking half-pitch, slightly trapezoidal like the old computer display.
- const top=70,bottom=350,leftTop=205,rightTop=435,leftBottom=25,rightBottom=615;
- function project(u,v){return{x:leftTop+(rightTop-leftTop)*u+(leftBottom-leftTop)*v,y:top+(bottom-top)*v}}
- ctx.beginPath();let p0=project(0,0),p1=project(1,0),p2=project(1,1),p3=project(0,1);ctx.moveTo(p0.x,p0.y);ctx.lineTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.lineTo(p3.x,p3.y);ctx.closePath();ctx.fillStyle='#438b42';ctx.fill();ctx.strokeStyle='#e5e4c5';ctx.lineWidth=3;ctx.stroke();
- // Broad retro mowing bands and white penalty markings.
- for(let i=0;i<6;i++){let v=i/6;let a=project(0,v),b=project(1,v);ctx.fillStyle=i%2?'rgba(10,50,20,.08)':'rgba(190,220,120,.08)';ctx.fillRect(a.x,a.y,b.x-a.x,46)}
- function line(u1,v1,u2,v2){let a=project(u1,v1),b=project(u2,v2);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}
- ctx.strokeStyle='#f0edcf';ctx.lineWidth=3;line(.15,.23,.85,.23);line(.15,.23,.15,.62);line(.85,.23,.85,.62);line(.31,.08,.69,.08);line(.31,.08,.31,.23);line(.69,.08,.69,.23);
- // Goal with square mesh.
- let gl=project(.37,0),gr=project(.63,0);ctx.strokeStyle='#f2efcf';ctx.lineWidth=5;ctx.strokeRect(gl.x,top-25,gr.x-gl.x,26);ctx.strokeStyle='rgba(240,240,210,.65)';ctx.lineWidth=1;for(let x=gl.x+8;x<gr.x;x+=12){ctx.beginPath();ctx.moveTo(x,top-23);ctx.lineTo(x,top-1);ctx.stroke()}for(let y=top-19;y<top;y+=7){ctx.beginPath();ctx.moveTo(gl.x,y);ctx.lineTo(gr.x,y);ctx.stroke()}
- // Tiny square-headed, brick-bodied footballers, deliberately low-resolution.
- function brick(u,v,shirt,number,frame=0,keeper=false){let q=project(u,v),scale=.62+v*.48,x=Math.round(q.x),y=Math.round(q.y),unit=Math.max(2,Math.round(3*scale));
-  // shadow
-  ctx.fillStyle='#24442a';ctx.fillRect(x-5*unit,y+3*unit,10*unit,2*unit);
-  // legs with alternating kick stride
-  ctx.fillStyle='#24251f';let stride=frame%2?unit:0;ctx.fillRect(x-3*unit-stride,y+unit,2*unit,4*unit);ctx.fillRect(x+unit+stride,y+unit,2*unit,4*unit);
-  // boots
-  ctx.fillStyle='#d8d3b6';ctx.fillRect(x-4*unit-stride,y+4*unit,3*unit,unit);ctx.fillRect(x+unit+stride,y+4*unit,3*unit,unit);
-  // torso: square brick shirt, sleeves and number
-  ctx.fillStyle=shirt;ctx.fillRect(x-4*unit,y-4*unit,8*unit,6*unit);ctx.fillRect(x-6*unit,y-3*unit,2*unit,4*unit);ctx.fillRect(x+4*unit,y-3*unit,2*unit,4*unit);
-  ctx.fillStyle='#e0bd8b';ctx.fillRect(x-2*unit,y-7*unit,4*unit,3*unit);
-  ctx.fillStyle='#f1e8c6';ctx.font=`bold ${Math.max(7,8*scale)}px Courier New`;ctx.textAlign='center';ctx.fillText(String(number),x,y);
-  if(keeper){ctx.fillStyle='#f0ce65';ctx.fillRect(x-4*unit,y-4*unit,8*unit,6*unit)}
+function drawPitchFrame(progress,event,phase='attack'){
+ let canvas=$('matchCanvas');if(!canvas)return;let ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
+ ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,w,h);
+ // Original C64-style scene: noisy terrace, yellow advertising hoarding, flat green half-pitch and goal at the right.
+ ctx.fillStyle='#171c29';ctx.fillRect(0,0,w,58);
+ // Tiny crowd blocks in rows, deliberately chunky and irregular.
+ const crowd=['#d6d18b','#547b57','#9a9a80','#3e5a48','#b8b58c','#6e7e65','#c3a96b'];
+ for(let row=0;row<5;row++)for(let col=0;col<160;col++){
+  let x=col*4+(row%2)*2,y=5+row*9;
+  let k=(col*17+row*29)%crowd.length;ctx.fillStyle=crowd[k];ctx.fillRect(x,y,3,5);
  }
- let attack=event?.side==='away'?-1:1;
- const team=[ [.50,.90],[.25,.77],[.42,.79],[.60,.76],[.76,.69],[.33,.57],[.66,.55],[.46,.43] ];
- const rivals=[ [.50,.18],[.27,.31],[.43,.32],[.62,.31],[.76,.35],[.36,.47],[.65,.48] ];
- let surge=progress;
- team.forEach((p,i)=>{let active=i===1||i===2||i===3||i===4||i===5||i===6;let v=Math.max(.22,p[1]-(active?surge*.17:surge*.035));let u=p[0]+(active?Math.sin(progress*7+i)*.035:0);brick(u,v,'#263cbd',i+1,Math.floor(progress*8+i))});
- rivals.forEach((p,i)=>{let close=progress>.25?Math.min(.12,(progress-.25)*.15):0;brick(p[0],Math.min(.70,p[1]+close),i%2?'#e8e3d0':'#c9c2a5',i+1,Math.floor(progress*6+i))});
- brick(.5,.105,'#d7a43c',1,progress>.72?1:0,true);
- // Ball moves visibly from brick player to brick player, then towards the goal.
- let path=[[.50,.86],[.39,.70],[.63,.57],[.43,.43],[.55,.28],[.50,.09]];let seg=Math.min(path.length-2,Math.floor(progress*(path.length-1))),local=progress*(path.length-1)-seg;local=Math.max(0,Math.min(1,local));let a=path[seg],b=path[seg+1];let u=a[0]+(b[0]-a[0])*local,v=a[1]+(b[1]-a[1])*local;
- if(event?.type==='miss'&&progress>.78){if(event.shot==='wide')u+=.18*attack;else if(event.shot==='saved')u=.53}
- let ball=project(u,v),sz=Math.max(5,Math.round(7*(.65+v*.5)));ctx.fillStyle='#fff4d2';ctx.fillRect(Math.round(ball.x-sz/2),Math.round(ball.y-sz/2),sz,sz);ctx.strokeStyle='#18251a';ctx.lineWidth=1;ctx.strokeRect(Math.round(ball.x-sz/2),Math.round(ball.y-sz/2),sz,sz);
- if(progress>.78&&event?.type==='goal'){ctx.fillStyle='#fff3c4';ctx.font='bold 24px Courier New';ctx.textAlign='center';ctx.fillText('GOAL!',w/2,110);for(let i=0;i<10;i++){ctx.fillStyle=i%2?'#f3df8b':'#d5e9a0';ctx.fillRect(260+(i*31)%120,118+(i*17)%30,5,5)}}
- if(progress>.78&&event?.type==='miss'){ctx.fillStyle='#fff3c4';ctx.font='bold 19px Courier New';ctx.textAlign='center';ctx.fillText(event.shot==='saved'?'SAVED!':'JUST WIDE!',w/2,110)}
+ ctx.fillStyle='#d9d36f';ctx.fillRect(0,55,w,30);ctx.fillStyle='#7a4f40';ctx.font='bold 24px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('★  TOUCHLINE  ★     FOOTBALL     ★  1984  ★',w/2,70);
+ // Flat green playing area with a faint pixel-grid texture.
+ ctx.fillStyle='#4f9b45';ctx.fillRect(0,85,w,275);
+ for(let y=85;y<360;y+=4){ctx.fillStyle=(Math.floor(y/4)%2)?'rgba(20,75,28,.025)':'rgba(210,235,120,.025)';ctx.fillRect(0,y,w,2)}
+ // Touchlines and the right-hand penalty area in the same angled composition as the reference image.
+ ctx.strokeStyle='#eeeccf';ctx.lineWidth=4;ctx.lineCap='square';
+ ctx.beginPath();ctx.moveTo(12,87);ctx.lineTo(12,350);ctx.lineTo(628,350);ctx.stroke();
+ // Penalty box and six-yard box, with the right goal opening at the edge of the view.
+ ctx.beginPath();ctx.moveTo(405,87);ctx.lineTo(500,220);ctx.lineTo(500,350);ctx.moveTo(500,220);ctx.lineTo(615,220);ctx.lineTo(615,350);ctx.moveTo(500,260);ctx.lineTo(615,260);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(535,87);ctx.lineTo(590,165);ctx.lineTo(590,260);ctx.moveTo(590,165);ctx.lineTo(628,165);ctx.lineTo(628,260);ctx.stroke();
+ // Goal frame and net, viewed obliquely from the left.
+ ctx.strokeStyle='#e9e8d1';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(590,165);ctx.lineTo(628,165);ctx.lineTo(628,260);ctx.lineTo(590,260);ctx.stroke();
+ ctx.strokeStyle='rgba(238,238,215,.65)';ctx.lineWidth=1;for(let x=596;x<628;x+=7){ctx.beginPath();ctx.moveTo(x,168);ctx.lineTo(x,258);ctx.stroke()}for(let y=174;y<260;y+=9){ctx.beginPath();ctx.moveTo(592,y);ctx.lineTo(628,y);ctx.stroke()}
+ // Small block footballers. The reference has tiny brick-like sprites, not circles or modern icons.
+ function brick(x,y,kit,n,step=0,keeper=false){
+  x=Math.round(x);y=Math.round(y);let s=1.0;
+  // shadow
+  ctx.fillStyle='rgba(24,57,25,.45)';ctx.fillRect(x-6,y+11,14,3);
+  // legs and boots kick alternately
+  let kick=(step%2)?2:0;ctx.fillStyle='#25251f';ctx.fillRect(x-4-kick,y+5,3,8);ctx.fillRect(x+2+kick,y+5,3,8);
+  ctx.fillStyle='#ded8bd';ctx.fillRect(x-5-kick,y+12,4,2);ctx.fillRect(x+2+kick,y+12,4,2);
+  // torso and square sleeves
+  ctx.fillStyle=keeper?'#e2c34f':kit;ctx.fillRect(x-5,y-3,11,9);ctx.fillRect(x-7,y-2,2,6);ctx.fillRect(x+6,y-2,2,6);
+  // square head and dark hair
+  ctx.fillStyle='#d7ad80';ctx.fillRect(x-3,y-8,7,5);ctx.fillStyle='#25231f';ctx.fillRect(x-3,y-9,7,2);
+  ctx.fillStyle='#f1e9c8';ctx.font='bold 7px monospace';ctx.textAlign='center';ctx.fillText(String(n),x+1,y+3);
+ }
+ const attacking=event?.side==='away'?-1:1;
+ // Both teams shift during the passing sequence; keeper guards the right-hand goal.
+ const home=[[115,290],[185,250],[245,300],[300,230],[355,285],[395,190],[450,275],[475,215]];
+ const away=[[165,165],[245,190],[310,145],[360,175],[420,145],[465,185],[510,205]];
+ let t=progress,phaseShift=phase==='idle'?0:t;
+ home.forEach((p,i)=>{let moving=(i>=1&&i<=6);let x=p[0]+(moving?Math.sin(t*9+i*1.8)*18*phaseShift:0);let y=p[1]+(moving?Math.cos(t*7+i)*10*phaseShift:0);brick(x,y,'#2538a8',i+1,Math.floor(t*12+i))});
+ away.forEach((p,i)=>{let press=phase==='attack'?Math.max(0,t-.22):0;let x=p[0]-(attacking<0?press*70:press*12)+Math.sin(t*6+i)*5*phaseShift;let y=p[1]+Math.cos(t*5+i)*8*phaseShift;brick(x,y,i%2?'#eee9d2':'#d2c9aa',i+1,Math.floor(t*10+i))});
+ brick(603,211,'#d4a33e',1,Math.floor(t*8),true);
+ // Ball is a tiny square, passed visibly from boot to boot, then struck towards the goal.
+ const route=[[105,282],[180,245],[240,292],[300,225],[365,275],[420,205],[480,240],[550,215],[613,212]];
+ let seg=Math.min(route.length-2,Math.floor(t*(route.length-1))),local=t*(route.length-1)-seg;local=Math.max(0,Math.min(1,local));
+ let a=route[seg],b=route[seg+1],bx=a[0]+(b[0]-a[0])*local,by=a[1]+(b[1]-a[1])*local;
+ if(event?.type==='miss'&&t>.82){if(event.shot==='wide'){bx=Math.min(630,bx+25);by-=25}else if(event.shot==='saved'){bx=592;by=212}}
+ if(event?.type==='goal'&&t>.84){bx=620;by=212}
+ let bob=(phase==='idle'?0:Math.sin(t*35)*1.5);ctx.fillStyle='#f5f0d8';ctx.fillRect(Math.round(bx-4),Math.round(by-4+bob),8,8);ctx.strokeStyle='#263022';ctx.lineWidth=1;ctx.strokeRect(Math.round(bx-4),Math.round(by-4+bob),8,8);
+ if(t>.86&&event?.type==='goal'){ctx.fillStyle='#f7edb9';ctx.font='bold 24px monospace';ctx.textAlign='center';ctx.fillText('GOAL!',320,120);for(let i=0;i<16;i++){ctx.fillStyle=i%2?'#fff2a5':'#f5d66d';ctx.fillRect(290+(i*19)%75,130+(i*11)%35,4,4)}}
+ if(t>.86&&event?.type==='miss'){ctx.fillStyle='#f7edb9';ctx.font='bold 20px monospace';ctx.textAlign='center';ctx.fillText(event.shot==='saved'?'SAVED!':'JUST WIDE!',320,120)}
 }
 function drawPlayer(ctx,x,y,n,color){ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,10,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#132016';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#102016';ctx.font='bold 9px Courier New';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(n),x,y+.5)}
 function updateLiveScore(){let goals=lastReport.events.filter(e=>e.type==='goal'&&e._shown);let h=0,a=0;goals.forEach(e=>{if(e.side==='home')h++;else a++});let el=$('liveScore');if(el)el.textContent=h+' - '+a}
 function appendLiveLine(e){let box=$('liveCommentary');if(!box)return;let p=document.createElement('p');p.className=e.type==='goal'?'goal':e.type==='miss'?'miss':e.type==='whistle'?'whistle':'';p.innerHTML=`<b>${String(e.minute).padStart(2,'0')}'</b> ${esc(e.text)}`;box.appendChild(p);box.scrollTop=box.scrollHeight;let minute=$('liveMinute');if(minute)minute.textContent=String(e.minute).padStart(2,'0')+' MINUTES';}
-async function startLiveHighlights(){if(matchTimer)clearTimeout(matchTimer);let incidents=lastReport.events.filter(e=>e.type==='goal'||e.type==='miss');let timeline=lastReport.events.filter(e=>e.type==='whistle'||e.type==='play'||e.type==='booking');let token=++animationToken;let scoreH=0,scoreA=0;let sequence=[...incidents].sort((a,b)=>a.minute-b.minute);if(!sequence.length){let c=$('matchCaption');if(c)c.textContent='A QUIET MATCH — NO CLEAR CHANCES';appendLiveLine({minute:90,type:'whistle',text:'FULL TIME!'});let btn=$('liveCommentary');if(btn){let b=document.createElement('button');b.className='primary';b.textContent='VIEW RESULTS';b.onclick=skipToResults;btn.appendChild(b)}return;}
- for(let i=0;i<sequence.length;i++){if(token!==animationToken||screenMode!=='match')return;let e=sequence[i];let caption=$('matchCaption');if(caption)caption.textContent=`${String(e.minute).padStart(2,'0')}' — ${e.type==='goal'?'ATTACK BUILDING':'CHANCE DEVELOPING'}`;await new Promise(resolve=>{let start=performance.now(),duration=2700;function frame(now){if(token!==animationToken){resolve();return}let p=Math.min(1,(now-start)/duration);drawPitchFrame(p,e);if(p<1)requestAnimationFrame(frame);else resolve()}requestAnimationFrame(frame)});if(token!==animationToken)return;e._shown=true;if(e.type==='goal'){if(e.side==='home')scoreH++;else scoreA++;let score=$('liveScore');if(score)score.textContent=scoreH+' - '+scoreA;caption=$('matchCaption');if(caption)caption.textContent=`GOAL! ${e.scorer||'THE SCORER'} — ${scoreH}-${scoreA}`;playOneSound('goal')}else{caption=$('matchCaption');if(caption)caption.textContent=e.shot==='saved'?'THE GOALKEEPER SAVES IT!':'SHOT JUST WIDE!';playOneSound('miss')}appendLiveLine(e);await new Promise(resolve=>matchTimer=setTimeout(resolve,850));}
- if(token!==animationToken)return;let c=$('matchCaption');if(c)c.textContent='FULL TIME!';let min=$('liveMinute');if(min)min.textContent='90 MINUTES · FULL TIME';appendLiveLine({minute:90,type:'whistle',text:`FULL TIME! ${lastReport.mine.home} ${lastReport.mine.gf}-${lastReport.mine.ga} ${lastReport.mine.away}.`});let box=$('liveCommentary');if(box){let b=document.createElement('button');b.className='primary';b.style.marginTop='10px';b.textContent='VIEW RESULTS';b.onclick=skipToResults;box.appendChild(b)}
+async function runScene(event,token,index,total){
+ const caption=$('matchCaption');if(caption)caption.textContent=event.type==='goal'?`${String(event.minute).padStart(2,'0')}' — ATTACK BUILDING`:event.type==='miss'?`${String(event.minute).padStart(2,'0')}' — CHANCE DEVELOPING`:`${String(event.minute).padStart(2,'0')}' — PLAY MOVES FORWARD`;
+ const duration=event.type==='goal'?3400:event.type==='miss'?3000:2100;
+ await new Promise(resolve=>{let began=performance.now();function frame(now){if(token!==animationToken){resolve();return}let p=Math.min(1,(now-began)/duration);drawPitchFrame(p,event,'attack');if(p<1)requestAnimationFrame(frame);else resolve()}requestAnimationFrame(frame)});
+ if(token!==animationToken)return;
+ if(event.type==='goal'){event._shown=true;updateLiveScore();if(caption)caption.textContent=`GOAL! ${event.scorer||'THE SCORER'}`;playOneSound('goal')}
+ else if(event.type==='miss'){if(caption)caption.textContent=event.shot==='saved'?'THE GOALKEEPER SAVES IT!':'SHOT JUST WIDE!';playOneSound('miss')}
+ else {if(event.type==='play')playOneSound('kick');if(caption)caption.textContent=event.type==='play'?'PLAY CONTINUES':'MATCH ACTION';}
+ appendLiveLine(event);
+ await new Promise(resolve=>{matchTimer=setTimeout(resolve,event.type==='goal'?1100:450)});
+}
+async function startLiveHighlights(){
+ if(matchTimer)clearTimeout(matchTimer);let token=++animationToken;
+ const sequence=lastReport.events.filter(e=>['goal','miss','play','booking'].includes(e.type)).sort((a,b)=>a.minute-b.minute);
+ playOneSound('whistle');
+ // The whole match is a continuous automatic sequence. No Watch/Next/Results button is required.
+ for(let i=0;i<sequence.length;i++){
+  if(token!==animationToken||screenMode!=='match')return;
+  let event=sequence[i];let minute=$('liveMinute');if(minute)minute.textContent=String(event.minute).padStart(2,'0')+' MINUTES';
+  await runScene(event,token,i,sequence.length);
+ }
+ if(token!==animationToken||screenMode!=='match')return;
+ let caption=$('matchCaption');if(caption)caption.textContent='FULL TIME';let minute=$('liveMinute');if(minute)minute.textContent='90 MINUTES · FULL TIME';
+ appendLiveLine({minute:90,type:'whistle',text:`FULL TIME! ${lastReport.mine.home} ${lastReport.mine.gf}-${lastReport.mine.ga} ${lastReport.mine.away}.`});
+ playOneSound('whistle');
+ await new Promise(resolve=>{matchTimer=setTimeout(resolve,1800)});
+ if(token!==animationToken||screenMode!=='match')return;
+ screenMode='results';stopCrowd();render();
 }
 function animateIncident(index){let incidents=lastReport?.events.filter(e=>e.type==='goal'||e.type==='miss')||[];let e=incidents[index];if(!e)return;let token=++animationToken;let start=performance.now();function frame(now){if(token!==animationToken)return;let p=Math.min(1,(now-start)/2600);drawPitchFrame(p,e);if(p<1)requestAnimationFrame(frame);else{let c=$('matchCaption');if(c)c.textContent=e.type==='goal'?`GOAL! ${e.scorer||'THE STRIKER'}`:e.shot==='saved'?'SAVED!':'JUST WIDE!'}}requestAnimationFrame(frame)}
 function watchHighlights(){screenMode='match';render()}
