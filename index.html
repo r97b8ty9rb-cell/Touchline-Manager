@@ -195,9 +195,9 @@ function makeBallPath(event){
  if(event.type==='goal'||event.type==='miss'){
   // Goal is always at world-right. X() mirrors pitch, goal, players and ball
   // together when the away side attacks or after the interval.
-  const targetX=event.type==='goal'?604:(event.shot==='saved'?556:568);
+  const targetX=event.type==='goal'?604:(event.shot==='saved'?552:568);
   const goalY=rand(211,249);
-  const targetY=event.type==='goal'?goalY:(event.shot==='saved'?rand(232,250):(Math.random()<.5?rand(150,185):rand(292,330)));
+  const targetY=event.type==='goal'?goalY:(event.shot==='saved'?rand(242,260):(Math.random()<.5?rand(150,185):rand(292,330)));
   const dist=Math.hypot(targetX-last.x,targetY-last.y),shotTime=Math.max(1.65,Math.min(3.5,dist/54));
   steps.push({from:nodes.length-1,to:null,target:{x:targetX,y:targetY},t0:cursor,t1:cursor+shotTime,holdEnd:cursor+shotTime,kind:'shot'});cursor+=shotTime;
  }else{
@@ -226,53 +226,46 @@ function drawPitchFrame(progress,event,phase='attack'){
  for(let y=88;y<374;y+=7){ctx.fillStyle='rgba(230,245,170,.045)';ctx.fillRect(18,y,604,1)}
  ctx.strokeStyle='#f4f0dc';ctx.lineWidth=3;ctx.lineCap='square';ctx.lineJoin='miter';
  ctx.beginPath();ctx.moveTo(X(30),86);ctx.lineTo(X(30),367);ctx.lineTo(X(612),367);ctx.stroke();
- // Original 1984 half-pitch geometry, traced from the user's reference.
- // The old game shows the far-side penalty-area edges as stepped diagonals,
- // a small six-yard rectangle, square spot and a deep rectangular net.
- // Every point is authored in canonical world coordinates; X mirrors the
- // complete drawing at half-time so the teams change ends together.
- // Draw a polyline through canonical pitch coordinates, applying the same
- // single camera mirror used by the goal, players and ball.
+ // Rebuilt 1984 half-pitch geometry: a clear penalty-area silhouette,
+ // a distinct six-yard box and a deep, visible goal. All dimensions are
+ // authored in one canonical right-attacking view; X() mirrors everything.
  function linePath(points){
   if(!points || !points.length) return;
-  ctx.beginPath();
-  ctx.moveTo(X(points[0][0]), points[0][1]);
-  for(let i=1;i<points.length;i++) ctx.lineTo(X(points[i][0]), points[i][1]);
+  ctx.beginPath();ctx.moveTo(X(points[0][0]),points[0][1]);
+  for(let i=1;i<points.length;i++)ctx.lineTo(X(points[i][0]),points[i][1]);
  }
- function strokePixelPath(points,weight=3){
-  linePath(points);ctx.strokeStyle='#173b20';ctx.lineWidth=weight+3;ctx.lineJoin='miter';ctx.lineCap='square';ctx.stroke();
-  linePath(points);ctx.strokeStyle='#f3efd9';ctx.lineWidth=weight;ctx.lineJoin='miter';ctx.lineCap='square';ctx.stroke();
+ function pitchLine(points,weight=3){
+  linePath(points);ctx.strokeStyle='#173b20';ctx.lineWidth=weight+3;ctx.lineJoin='round';ctx.lineCap='square';ctx.stroke();
+  linePath(points);ctx.strokeStyle='#f5f1df';ctx.lineWidth=weight;ctx.lineJoin='round';ctx.lineCap='square';ctx.stroke();
  }
- // Original 1984 half-pitch markings, mapped point-for-point from the approved reference.
- // Reference mapping: source image x=28..1030 -> canvas x=30..612;
- // source image y=168..598 -> canvas y=86..367.
- // Penalty area: diagonal from far touchline, vertical edge, bottom edge,
- // then the short upright at the outer corner.
- strokePixelPath([[399,86],[488,229],[488,367]],3);
- strokePixelPath([[488,367],[612,367]],3);
- // Far-side diagonal meets the rear upper corner of the goal frame.
- strokePixelPath([[522,86],[577,169]],3);
- // Six-yard box: correctly joins the penalty-area edge to the goal line.
- strokePixelPath([[488,229],[577,229],[577,274],[488,274],[488,229]],3);
- // Small square penalty mark, matching the original raster display.
- ctx.fillStyle='#f4f0dc';ctx.fillRect(X(500)-2,239,5,5);
- // Goal frame and net: front mouth at x=574, rear frame at x=612.
- const gx=577,gBack=612,gTop=169,gBottom=274;
- ctx.beginPath();ctx.moveTo(X(gx),gTop);ctx.lineTo(X(gBack),gTop);ctx.lineTo(X(gBack),gBottom);ctx.lineTo(X(gx),gBottom);
- ctx.strokeStyle='#173b20';ctx.lineWidth=8;ctx.lineJoin='miter';ctx.stroke();
- ctx.strokeStyle='#f7f2df';ctx.lineWidth=4;ctx.stroke();
- ctx.beginPath();ctx.moveTo(X(gx),gTop);ctx.lineTo(X(gx),gBottom);ctx.moveTo(X(gBack),gTop);ctx.lineTo(X(gBack),gBottom);
- ctx.moveTo(X(gx),gTop);ctx.lineTo(X(gBack),gTop);ctx.moveTo(X(gx),gBottom);ctx.lineTo(X(gBack),gBottom);
- ctx.strokeStyle='#fff9e9';ctx.lineWidth=3;ctx.stroke();
- ctx.strokeStyle='rgba(247,242,223,.82)';ctx.lineWidth=1;
+ // Penalty area: bold, continuous lines with a perspective-cut far corner.
+ // The vertical goal line is shared by the penalty area and goal mouth.
+ const goalLine=584, areaBack=365, areaTop=220, areaBottom=367;
+ pitchLine([[470,86],[areaBack,areaTop],[areaBack,areaBottom],[goalLine,areaBottom]],4);
+ pitchLine([[areaBack,areaTop],[goalLine,areaTop]],4);
+ // Six-yard box, cleanly joined to the goal line.
+ const sixLeft=500,sixTop=238,sixBottom=282;
+ pitchLine([[sixLeft,sixTop],[goalLine,sixTop],[goalLine,sixBottom],[sixLeft,sixBottom],[sixLeft,sixTop]],3);
+ // Penalty spot is centred on the goal mouth and inside the penalty area.
+ ctx.fillStyle='#f5f1df';ctx.fillRect(X(455)-3,258-3,6,6);
+ // Goal: front posts on the goal line, rear frame set back into the net.
+ const gx=goalLine,gBack=614,gTop=220,gBottom=282;
+ // Net backing and side depth are drawn first so the white frame stays crisp.
+ ctx.fillStyle='rgba(220,235,205,.10)';
+ ctx.beginPath();ctx.moveTo(X(gx),gTop);ctx.lineTo(X(gBack),gTop+10);ctx.lineTo(X(gBack),gBottom-10);ctx.lineTo(X(gx),gBottom);ctx.closePath();ctx.fill();
+ ctx.strokeStyle='#dce8d2';ctx.lineWidth=1.5;
  for(let i=1;i<7;i++){
-  const x=gx+(gBack-gx)*i/7;
-  ctx.beginPath();ctx.moveTo(X(x),gTop+2);ctx.lineTo(X(x),gBottom-2);ctx.stroke();
+  const u=i/7,xx=gx+(gBack-gx)*u;
+  ctx.beginPath();ctx.moveTo(X(xx),gTop+u*10);ctx.lineTo(X(xx),gBottom-u*10);ctx.stroke();
  }
- for(let i=1;i<7;i++){
-  const y=gTop+(gBottom-gTop)*i/7;
-  ctx.beginPath();ctx.moveTo(X(gx+2),y);ctx.lineTo(X(gBack-2),y);ctx.stroke();
+ for(let i=1;i<6;i++){
+  const u=i/6,yy=gTop+(gBottom-gTop)*u;
+  ctx.beginPath();ctx.moveTo(X(gx+1),yy);ctx.lineTo(X(gBack),yy+(u-.5)*-20);ctx.stroke();
  }
+ // Strong goal frame: two front posts, crossbar and rear supports.
+ pitchLine([[gx,gTop],[gx,gBottom]],5);
+ pitchLine([[gx,gTop],[gBack,gTop+10],[gBack,gBottom-10],[gx,gBottom]],4);
+ pitchLine([[gBack,gTop+10],[gBack,gBottom-10]],3);
  // Score strip.
  const shownGoals=lastReport?.events?.filter(e=>e.type==='goal'&&e._shown)||[];
  const sh=shownGoals.filter(e=>e.side==='home').length,sa=shownGoals.filter(e=>e.side==='away').length;
@@ -331,7 +324,7 @@ function drawPitchFrame(progress,event,phase='attack'){
   let y=p.y+(ballY-p.y)*.035*u+Math.cos(now*.9+i)*2.2;
   sprite(X(x),y,scene?(scene.side==='home'?awayKit:homeKit):awayKit,i+1,-dir,now*1.9+i);
  });
- const keeperWorldX=(event?.type==='miss'&&event.shot==='saved')?557:590;const keeperX=X(keeperWorldX),keeperY=245+(scene?Math.max(-9,Math.min(9,(ballY-245)*.12)):0);
+ const keeperWorldX=(event?.type==='miss'&&event.shot==='saved')?552:590;const keeperX=X(keeperWorldX),keeperY=245+(scene?Math.max(-9,Math.min(9,(ballY-245)*.12)):0);
  sprite(keeperX,keeperY,['#e5c34c','#202020'],1,-dir,now*2.1,true);
  // Square ball settles at the receiving player's boots before the next kick.
  ctx.fillStyle='#fffef0';ctx.fillRect(Math.round(ballX-3),Math.round(ballY-3),6,6);ctx.strokeStyle='#242820';ctx.lineWidth=1;ctx.strokeRect(Math.round(ballX-3),Math.round(ballY-3),6,6);
