@@ -6,7 +6,7 @@
 <title>Touchline Manager</title>
 <style>
 :root{--bg:#101b16;--panel:#182820;--line:#42604b;--green:#9bd66b;--cream:#e5e2c6;--muted:#a8b39e;--red:#e28b72;--gold:#e4ca72;--blue:#8eb8d8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:'Courier New',monospace;font-size:14px;line-height:1.45}.wrap{max-width:820px;margin:auto;padding:10px}.mast{border:2px solid var(--green);padding:12px;text-align:center;background:#0b130f}.mast h1{font-size:clamp(23px,6vw,36px);letter-spacing:2px;color:var(--green);margin:0}.mast small{color:var(--muted);letter-spacing:3px}.scorebar{display:flex;justify-content:space-between;gap:5px;flex-wrap:wrap;margin:9px 0;padding:9px;border:1px solid var(--line);background:#142119;color:var(--green);font-weight:bold}.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:9px 0}.tabs button,button{font: bold 12px 'Courier New';border:1px solid var(--green);background:#1c3024;color:var(--cream);padding:10px 5px;cursor:pointer}.tabs button.active,button.primary{background:var(--green);color:#102015}button:disabled{opacity:.35}.panel{border:1px solid var(--line);background:var(--panel);padding:12px;margin:9px 0}.panel h2{font-size:16px;color:var(--green);margin:0 0 9px;border-bottom:1px dashed var(--line);padding-bottom:7px}.muted{color:var(--muted)}.big{font-size:22px;color:var(--gold);font-weight:bold}.row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dotted #3a5141}.row:last-child{border:0}.btnrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:105px}.table{width:100%;border-collapse:collapse;font-size:11px}.table th,.table td{text-align:right;padding:6px 3px;border-bottom:1px solid var(--line);white-space:nowrap}.table th:first-child,.table td:first-child{text-align:left;white-space:normal}.table th{color:var(--green)}.table tr.you{color:var(--gold);font-weight:bold}.player{display:grid;grid-template-columns:minmax(0,1fr) 42px 55px;gap:5px;padding:7px 0;border-bottom:1px dotted var(--line);align-items:center}.player button{padding:5px}.player small{color:var(--muted);display:block}.notice{color:var(--gold);padding:8px;border:1px dashed var(--gold);margin-top:8px}.good{color:var(--green)}.bad{color:var(--red)}.hidden{display:none}.footer{text-align:center;color:#728477;font-size:11px;padding:15px}.clubgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.club{padding:12px;text-align:left}.club strong{display:block;color:var(--green)}.club span{font-size:11px;color:var(--muted)}.pill{display:inline-block;border:1px solid var(--line);padding:2px 6px;color:var(--muted);font-size:11px}.commentary{background:#0d1711;border:1px solid var(--line);padding:9px;max-height:270px;overflow:auto}.commentary p{margin:5px 0;padding:7px 6px;border-bottom:1px dotted #314638}.commentary p.goal{color:var(--green);font-weight:bold;background:#14251a}.commentary p.miss{color:var(--gold)}.commentary p.whistle{color:var(--muted);font-style:italic}.soundrow{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.soundrow button{flex:1;min-width:125px}.matchstage{background:#0b1710;border:1px solid var(--line);padding:8px;margin:8px 0}.matchstage canvas{display:block;width:100%;height:auto;aspect-ratio:640/420;background:#183d25;border:1px solid #71915a}.matchcaption{min-height:24px;color:var(--gold);text-align:center;padding:6px 2px;font-weight:bold}.incidentbuttons{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}.incidentbuttons button{flex:1;min-width:100px}.pitchhint{font-size:11px;color:var(--muted);text-align:center}.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.stat{background:#122019;padding:8px;border:1px solid var(--line)}.stat b{display:block;color:var(--gold);font-size:18px}.selectline{width:100%;padding:9px;background:#102018;color:var(--cream);border:1px solid var(--line);font:13px 'Courier New'}.smallbtn{padding:5px 7px}.marketitem{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 0;border-bottom:1px dotted var(--line)}.end{text-align:center;padding:15px;color:var(--gold)}@media(min-width:600px){.twocol{display:grid;grid-template-columns:1fr 1fr;gap:9px}}
-</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE</small></header><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · TOUCHLINE MANAGER · OFFLINE EDITION · V12 TWO-HALF MATCH ENGINE</div></div>
+</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE</small></header><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · TOUCHLINE MANAGER · OFFLINE EDITION · V13 DIRECTION & MOVEMENT FIX</div></div>
 <script>
 'use strict';
 const CLUBS=[['AFC Albion',68,22000],['Bristol Rovers',65,18000],['Cwm Valley',61,14000],['Dunford Town',60,13000],['Eastborough',58,12000],['Fleet Athletic',57,11000],['Glenchester',55,10000],['Haversham',53,9000]];
@@ -147,25 +147,28 @@ function makeBallPath(event){
  let q=rand(.12,.24), lane=lanes[ids[0]]+rand(-8,8);
  const nodes=[{player:ids[0],q,y:lane}];
  for(let i=1;i<ids.length;i++){
-   q=Math.min(.86,q+rand(.105,.19));
-   lane=Math.max(145,Math.min(345,lane+rand(-65,65)));
+   q=Math.max(.18,Math.min(.88,q+rand(.055,.135)));
+   // Keep the move varied but generally progressive; an occasional short
+   // lay-off/back pass is allowed instead of every attack travelling in a line.
+   if(Math.random()<.22) q=Math.max(.14,q-rand(.025,.07));
+   lane=Math.max(150,Math.min(340,lane+rand(-48,48)));
    nodes.push({player:ids[i],q,y:lane});
  }
  const steps=[];let cursor=0;
  for(let i=0;i<nodes.length-1;i++){
-   const travel=rand(1.05,1.55),hold=rand(.55,.85);
+   const travel=rand(1.75,2.45),hold=rand(.85,1.25);
    steps.push({from:i,to:i+1,t0:cursor,t1:cursor+travel,holdEnd:cursor+travel+hold,kind:'pass'});
    cursor+=travel+hold;
  }
  const finalType=event.type;
  if(finalType==='goal'||finalType==='miss'){
    const y=finalType==='goal'?rand(222,268):event.shot==='saved'?rand(232,258):(Math.random()<.5?rand(165,195):rand(300,335));
-   const shotEnd=cursor+rand(1.0,1.35);
+   const shotEnd=cursor+rand(1.65,2.15);
    steps.push({from:nodes.length-1,to:null,target:{q:finalType==='miss'&&event.shot==='saved'?.97:1.04,y},t0:cursor,t1:shotEnd,holdEnd:shotEnd,kind:'shot'});
    cursor=steps[steps.length-1].t1;
  }else{
    const last=nodes[nodes.length-1];
-   steps.push({from:nodes.length-1,to:null,target:{q:Math.min(.94,last.q+.045),y:last.y+rand(-14,14)},t0:cursor,t1:cursor+1.05,holdEnd:cursor+1.05,kind:'carry'});
+   steps.push({from:nodes.length-1,to:null,target:{q:Math.min(.94,last.q+.045),y:last.y+rand(-14,14)},t0:cursor,t1:cursor+1.65,holdEnd:cursor+1.65,kind:'carry'});
    cursor=steps[steps.length-1].t1;
  }
  event._scene={nodes,steps,total:cursor,attacksRight,side,secondHalf,seed:Math.random()};
@@ -254,13 +257,15 @@ function drawPitchFrame(progress,event,phase='attack'){
      const e=u*u*(3-2*u);let q=x1+(x2-x1)*e,y=y1+(y2-y1)*e;
      if(now>active.t1&&active.to!==null){q=x2;y=y2;carrier=to.player;}
      else carrier=from.player;
-     ballX=X(q);ballY=y;
+     // q is already in canvas/screen coordinates: x1 and x2 were mirrored
+     // above. Mirroring it a second time sent the ball away from the goal.
+     ballX=q;ballY=y;
    }
  }
  // Attacking team: all seven outfield players shift and make short support runs.
  base.forEach((p,i)=>{
   let pos=nodePositions[i],x=pos?pos.x:X(90+p.q*470),y=pos?pos.y:p.y;
-  if(!pos){let move=scene?Math.sin(now*.9+i*1.7)*5:0;x+=dir*move;y+=Math.cos(now*.8+i)*4;}
+  if(!pos){let move=scene?Math.sin(now*.72+i*1.7)*7:0;x+=dir*move;y+=Math.cos(now*.68+i)*5;}
   const isCarrier=scene&&scene.nodes.some((n,j)=>n.player===i&&active&&(active.to===j||active.from===j)&&now>=active.t0&&now<=active.holdEnd);
   sprite(x,y,scene?((scene.side==='home')?homeKit:awayKit):homeKit,i+1,dir,now*3+i+(isCarrier?1:0));
  });
@@ -295,7 +300,7 @@ async function runScene(event,token,index,total){
  }
  if(caption)caption.textContent=event.type==='goal'?`${String(event.minute).padStart(2,'0')}' — ATTACK BUILDING`:event.type==='miss'?`${String(event.minute).padStart(2,'0')}' — CHANCE DEVELOPING`:`${String(event.minute).padStart(2,'0')}' — PLAY MOVES FORWARD`;
  if(!event._scene)makeBallPath(event);
- const duration=Math.max(5200,event._scene.total*1000);
+ const duration=Math.max(8500,event._scene.total*1000);
  await new Promise(resolve=>{let began=performance.now();function frame(now){if(token!==animationToken){resolve();return}let p=Math.min(1,(now-began)/duration);drawPitchFrame(p,event,'attack');if(p<1)requestAnimationFrame(frame);else resolve()}requestAnimationFrame(frame)});
  if(token!==animationToken)return;
  if(event.type==='goal'){event._shown=true;updateLiveScore();drawPitchFrame(1,event,'attack');if(caption)caption.textContent=`GOAL! ${event.scorer||'THE SCORER'}`;playOneSound('goal')}
