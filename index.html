@@ -6,7 +6,7 @@
 <title>Touchline Manager</title>
 <style>
 :root{--bg:#101b16;--panel:#182820;--line:#42604b;--green:#9bd66b;--cream:#e5e2c6;--muted:#a8b39e;--red:#e28b72;--gold:#e4ca72;--blue:#8eb8d8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:'Courier New',monospace;font-size:14px;line-height:1.45}.wrap{max-width:820px;margin:auto;padding:10px}.mast{border:2px solid var(--green);padding:12px;text-align:center;background:#0b130f}.mast h1{font-size:clamp(23px,6vw,36px);letter-spacing:2px;color:var(--green);margin:0}.mast small{color:var(--muted);letter-spacing:3px}.scorebar{display:flex;justify-content:space-between;gap:5px;flex-wrap:wrap;margin:9px 0;padding:9px;border:1px solid var(--line);background:#142119;color:var(--green);font-weight:bold}.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:9px 0}.tabs button,button{font: bold 12px 'Courier New';border:1px solid var(--green);background:#1c3024;color:var(--cream);padding:10px 5px;cursor:pointer}.tabs button.active,button.primary{background:var(--green);color:#102015}button:disabled{opacity:.35}.panel{border:1px solid var(--line);background:var(--panel);padding:12px;margin:9px 0}.panel h2{font-size:16px;color:var(--green);margin:0 0 9px;border-bottom:1px dashed var(--line);padding-bottom:7px}.muted{color:var(--muted)}.big{font-size:22px;color:var(--gold);font-weight:bold}.row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dotted #3a5141}.row:last-child{border:0}.btnrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:105px}.table{width:100%;border-collapse:collapse;font-size:11px}.table th,.table td{text-align:right;padding:6px 3px;border-bottom:1px solid var(--line);white-space:nowrap}.table th:first-child,.table td:first-child{text-align:left;white-space:normal}.table th{color:var(--green)}.table tr.you{color:var(--gold);font-weight:bold}.player{display:grid;grid-template-columns:minmax(0,1fr) 42px 55px;gap:5px;padding:7px 0;border-bottom:1px dotted var(--line);align-items:center}.player button{padding:5px}.player small{color:var(--muted);display:block}.notice{color:var(--gold);padding:8px;border:1px dashed var(--gold);margin-top:8px}.good{color:var(--green)}.bad{color:var(--red)}.hidden{display:none}.footer{text-align:center;color:#728477;font-size:11px;padding:15px}.clubgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.club{padding:12px;text-align:left}.club strong{display:block;color:var(--green)}.club span{font-size:11px;color:var(--muted)}.pill{display:inline-block;border:1px solid var(--line);padding:2px 6px;color:var(--muted);font-size:11px}.commentary{background:#0d1711;border:1px solid var(--line);padding:9px;max-height:270px;overflow:auto}.commentary p{margin:5px 0;padding:7px 6px;border-bottom:1px dotted #314638}.commentary p.goal{color:var(--green);font-weight:bold;background:#14251a}.commentary p.miss{color:var(--gold)}.commentary p.whistle{color:var(--muted);font-style:italic}.soundrow{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.soundrow button{flex:1;min-width:125px}.matchstage{background:#0b1710;border:1px solid var(--line);padding:8px;margin:8px 0}.matchstage canvas{display:block;width:100%;height:auto;aspect-ratio:640/420;background:#183d25;border:1px solid #71915a}.matchcaption{min-height:24px;color:var(--gold);text-align:center;padding:6px 2px;font-weight:bold}.incidentbuttons{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}.incidentbuttons button{flex:1;min-width:100px}.pitchhint{font-size:11px;color:var(--muted);text-align:center}.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.stat{background:#122019;padding:8px;border:1px solid var(--line)}.stat b{display:block;color:var(--gold);font-size:18px}.selectline{width:100%;padding:9px;background:#102018;color:var(--cream);border:1px solid var(--line);font:13px 'Courier New'}.smallbtn{padding:5px 7px}.marketitem{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 0;border-bottom:1px dotted var(--line)}.end{text-align:center;padding:15px;color:var(--gold)}@media(min-width:600px){.twocol{display:grid;grid-template-columns:1fr 1fr;gap:9px}}
-</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE</small></header><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · TOUCHLINE MANAGER · OFFLINE EDITION · V9 MATCH UPDATE</div></div>
+</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE</small></header><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · TOUCHLINE MANAGER · OFFLINE EDITION · V10 AUTHENTIC PLAYER MOVEMENT</div></div>
 <script>
 'use strict';
 const CLUBS=[['AFC Albion',68,22000],['Bristol Rovers',65,18000],['Cwm Valley',61,14000],['Dunford Town',60,13000],['Eastborough',58,12000],['Fleet Athletic',57,11000],['Glenchester',55,10000],['Haversham',53,9000]];
@@ -135,95 +135,118 @@ function beginMatchPresentation(){playOneSound('whistle')}
 let incidentTimer=null,animationToken=0;
 function resetPitch(){animationToken++;if(incidentTimer)clearTimeout(incidentTimer);drawPitchFrame(0,null);let c=$('matchCaption');if(c)c.textContent='READY FOR THE HIGHLIGHTS'}
 function makeBallPath(event){
- // A fresh, stable route for each incident: several short passes with varied angles and pace.
- const rand=(min,max)=>min+Math.random()*(max-min);
- const side=event?.side||'home';
- const points=[];
- let x=rand(70,170),y=rand(145,330);
- points.push([x,y]);
- const passes=3+Math.floor(Math.random()*4);
- for(let i=0;i<passes;i++){
-  const progress=(i+1)/(passes+1);
-  x=rand(115+progress*330,165+progress*350);
-  y=rand(125,345);
-  points.push([Math.min(545,x),y]);
+ // Build a fresh pass-by-pass move for this highlight. Every pass ends at a
+ // receiver's actual boot; the ball pauses there before the next kick.
+ const rand=(a,b)=>a+Math.random()*(b-a);
+ const attackSide=event?.side||'home';
+ const count=3+Math.floor(Math.random()*3); // 3–5 receivers, different each incident
+ const players=[];
+ let x=rand(95,150), y=rand(155,320);
+ for(let i=0;i<count;i++){
+  if(i>0){x=Math.min(535,x+rand(65,105));y=Math.max(132,Math.min(334,y+rand(-82,82)));}
+  players.push({x:Math.round(x),y:Math.round(y),facing:1});
  }
- if(event?.type==='goal')points.push([rand(560,585),rand(218,250)]);
- else if(event?.type==='miss')points.push(event.shot==='saved'?[rand(555,575),rand(220,250)]:[rand(600,628),Math.random()<.5?rand(145,180):rand(290,335)]);
- else points.push([rand(455,555),rand(155,330)]);
- event._ballPath=points;
- return points;
+ const steps=[];let cursor=0;
+ // Travel and a visible control pause at each player's feet.
+ const shotFinal=event?.type==='goal'||event?.type==='miss';
+ const stepCount=(players.length-1)+(shotFinal?1:0);
+ for(let i=0;i<players.length-1;i++){
+  const travel=.105+rand(.008,.025),hold=.035+rand(.006,.018);
+  steps.push({from:i,to:i+1,t0:cursor,t1:cursor+travel,holdEnd:cursor+travel+hold,kind:'pass'});
+  cursor+=travel+hold;
+ }
+ if(shotFinal){
+  let target;
+  if(event.type==='goal') target={x:rand(604,621),y:rand(211,255)};
+  else if(event.shot==='saved') target={x:rand(578,589),y:rand(218,250)};
+  else target={x:rand(606,635),y:Math.random()<.5?rand(150,185):rand(285,330)};
+  const travel=Math.max(.08,1-cursor);
+  steps.push({from:players.length-1,to:null,target,t0:cursor,t1:cursor+travel,holdEnd:1,kind:'shot'});
+ }else if(cursor<1){steps.push({from:players.length-1,to:null,target:{x:players[players.length-1].x+7,y:players[players.length-1].y-3},t0:cursor,t1:1,holdEnd:1,kind:'control'});}
+ // Keep a little time for the last player to visibly settle on the ball.
+ if(steps.length)steps[steps.length-1].t1=1;
+ event._ballPath={attackSide,players,steps};
+ return event._ballPath;
 }
 function drawPitchFrame(progress,event,phase='attack'){
  let canvas=$('matchCanvas');if(!canvas)return;let ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
  ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,w,h);
- // Crowd terrace and the game's correctly branded advertising hoarding.
+ // Original-style terrace and Touchline Manager hoarding.
  ctx.fillStyle='#202c4d';ctx.fillRect(0,0,w,52);
  const crowd=['#d6d18b','#547b57','#9a9a80','#3e5a48','#b8b58c','#6e7e65','#c3a96b','#b35c61','#6384b7'];
- for(let row=0;row<5;row++)for(let col=0;col<160;col++){
-  ctx.fillStyle=crowd[(col*17+row*29)%crowd.length];ctx.fillRect(col*4+(row%2)*2,4+row*9,3,5);
- }
- ctx.fillStyle='#e8df62';ctx.fillRect(0,52,w,34);
- ctx.fillStyle='#713c43';ctx.font='bold 27px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('TOUCHLINE MANAGER',w/2,69);
- // Flat, wide C64-style pitch.
+ for(let row=0;row<5;row++)for(let col=0;col<160;col++){ctx.fillStyle=crowd[(col*17+row*29)%crowd.length];ctx.fillRect(col*4+(row%2)*2,4+row*9,3,5)}
+ ctx.fillStyle='#e8df62';ctx.fillRect(0,52,w,34);ctx.fillStyle='#713c43';ctx.font='bold 27px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('TOUCHLINE MANAGER',w/2,69);
+ // Wide green playing area, matching the supplied 1984 reference.
  ctx.fillStyle='#4b9b3e';ctx.fillRect(0,86,w,294);
  for(let y=86;y<380;y+=6){ctx.fillStyle=(Math.floor(y/6)%2)?'rgba(18,76,24,.035)':'rgba(220,245,135,.035)';ctx.fillRect(0,y,w,3)}
- // Outer lines and right-side penalty/goal areas share exact coordinates and a common goal line.
- const goalLineX=590, pitchTop=88, pitchBottom=378, goalTop=204, goalBottom=262;
- ctx.strokeStyle='#f0eed9';ctx.lineWidth=3;ctx.lineCap='square';ctx.beginPath();
- ctx.moveTo(2,pitchTop);ctx.lineTo(2,pitchBottom);ctx.lineTo(638,pitchBottom);
- ctx.moveTo(2,pitchTop);ctx.lineTo(638,pitchTop);ctx.stroke();
- // Penalty area: its top, bottom and end all meet cleanly at the goal line.
- ctx.beginPath();ctx.moveTo(455,132);ctx.lineTo(goalLineX,132);ctx.lineTo(goalLineX,334);ctx.lineTo(455,334);ctx.stroke();
- // Six-yard box aligned to the same goal line.
- ctx.beginPath();ctx.moveTo(535,goalTop);ctx.lineTo(goalLineX,goalTop);ctx.lineTo(goalLineX,goalBottom);ctx.lineTo(535,goalBottom);ctx.stroke();
- // Penalty spot and a short arc.
- ctx.fillStyle='#f0eed9';ctx.fillRect(505,231,4,4);ctx.beginPath();ctx.arc(508,233,25,-Math.PI/2,Math.PI/2);ctx.stroke();
- // Goal frame is drawn from the exact same goal-mouth coordinates.
- ctx.strokeStyle='#f4f1df';ctx.lineWidth=4;ctx.strokeRect(goalLineX,goalTop,43,goalBottom-goalTop);
+ // Field markings: penalty area and six-yard area are perspective polygons.
+ // Both terminate on the same goal-line coordinates; the six-yard box sits wholly inside.
+ const goalLineX=590,goalTop=204,goalBottom=262;
+ ctx.strokeStyle='#f0eed9';ctx.lineWidth=3;ctx.lineCap='square';ctx.lineJoin='miter';ctx.beginPath();
+ ctx.moveTo(18,88);ctx.lineTo(18,378);ctx.lineTo(638,378);ctx.moveTo(18,88);ctx.lineTo(638,88);ctx.stroke();
+ // Penalty-area outline (tapered perspective), with the goal line as its right edge.
+ ctx.beginPath();ctx.moveTo(438,132);ctx.lineTo(520,132);ctx.lineTo(goalLineX,goalTop);ctx.lineTo(goalLineX,goalBottom);ctx.lineTo(520,334);ctx.lineTo(438,334);ctx.stroke();
+ // Six-yard box: same goal line and mouth, proportionally smaller.
+ ctx.beginPath();ctx.moveTo(520,188);ctx.lineTo(558,188);ctx.lineTo(goalLineX,goalTop);ctx.lineTo(goalLineX,goalBottom);ctx.lineTo(558,278);ctx.lineTo(520,278);ctx.closePath();ctx.stroke();
+ // Penalty spot and arc sit in front of the box.
+ ctx.fillStyle='#f0eed9';ctx.fillRect(486,231,4,4);ctx.beginPath();ctx.arc(488,233,24,-Math.PI/2,Math.PI/2);ctx.stroke();
+ // Goal mouth is centred on the same goal-line endpoints as both boxes.
+ const goalBack=632;ctx.strokeStyle='#f4f1df';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(goalLineX,goalTop);ctx.lineTo(goalBack,goalTop);ctx.lineTo(goalBack,goalBottom);ctx.lineTo(goalLineX,goalBottom);ctx.stroke();
  ctx.strokeStyle='rgba(245,244,225,.72)';ctx.lineWidth=1;
- for(let x=goalLineX+7;x<632;x+=7){ctx.beginPath();ctx.moveTo(x,goalTop+2);ctx.lineTo(x,goalBottom-2);ctx.stroke()}
- for(let y=goalTop+8;y<goalBottom;y+=8){ctx.beginPath();ctx.moveTo(goalLineX+2,y);ctx.lineTo(631,y);ctx.stroke()}
- // Live score and clock use the exact Touchline Manager match identity.
- let shownGoals=lastReport?.events?.filter(e=>e.type==='goal'&&e._shown)||[];
- let sh=shownGoals.filter(e=>e.side==='home').length,sa=shownGoals.filter(e=>e.side==='away').length;
- let minuteText=$('liveMinute')?.textContent||'KICK-OFF';
- ctx.fillStyle='#080a09';ctx.fillRect(0,384,640,36);ctx.fillStyle='#f1e85b';ctx.font='bold 16px monospace';ctx.textBaseline='middle';ctx.textAlign='left';
- let homeName=(lastReport?.mine?.home||'HOME').toUpperCase(),awayName=(lastReport?.mine?.away||'AWAY').toUpperCase();
- ctx.fillText(`${homeName}  ${sh}-${sa}  ${awayName}`,10,402);ctx.textAlign='right';ctx.fillText(minuteText.replace(' MINUTES','').replace(' · FULL TIME',' FT'),630,402);
- // Team colours are derived from the selected fixture. Cwm Valley is maroon/light blue.
+ for(let x=goalLineX+7;x<goalBack;x+=7){ctx.beginPath();ctx.moveTo(x,goalTop+2);ctx.lineTo(x,goalBottom-2);ctx.stroke()}
+ for(let y=goalTop+8;y<goalBottom;y+=8){ctx.beginPath();ctx.moveTo(goalLineX+2,y);ctx.lineTo(goalBack-1,y);ctx.stroke()}
+ // Live score and clock.
+ let shownGoals=lastReport?.events?.filter(e=>e.type==='goal'&&e._shown)||[];let sh=shownGoals.filter(e=>e.side==='home').length,sa=shownGoals.filter(e=>e.side==='away').length;
+ let minuteText=$('liveMinute')?.textContent||'KICK-OFF';ctx.fillStyle='#080a09';ctx.fillRect(0,384,640,36);ctx.fillStyle='#f1e85b';ctx.font='bold 16px monospace';ctx.textBaseline='middle';ctx.textAlign='left';
+ let homeName=(lastReport?.mine?.home||'HOME').toUpperCase(),awayName=(lastReport?.mine?.away||'AWAY').toUpperCase();ctx.fillText(`${homeName}  ${sh}-${sa}  ${awayName}`,10,402);ctx.textAlign='right';ctx.fillText(minuteText.replace(' MINUTES','').replace(' · FULL TIME',' FT'),630,402);
  const kits={'AFC Albion':['#c83b35','#f1e8d2'],'Bristol Rovers':['#d4473e','#182b55'],'Cwm Valley':['#74334f','#83b8df'],'Dunford Town':['#e6c735','#171717'],'Eastborough':['#d98b25','#202020'],'Fleet Athletic':['#65b8d4','#172d55'],'Glenchester':['#eee9d2','#202020'],'Haversham':['#792e46','#6d9bc5']};
- let m=lastReport?.mine||{},homeKit=kits[m.home]||['#2456b8','#f3eee0'],awayKit=kits[m.away]||['#eee9d2','#202020'];
- function brick(x,y,kit,n,step=0,keeper=false){
-  x=Math.round(x);y=Math.round(y);let kick=(step%2)?2:0;
-  ctx.fillStyle='rgba(18,55,20,.45)';ctx.fillRect(x-12,y+26,27,5);
-  ctx.fillStyle=kit[1];ctx.fillRect(x-9,y+10,8,8);ctx.fillRect(x+2,y+10,8,8);
-  ctx.fillStyle='#171915';ctx.fillRect(x-8-kick,y+17,6,13);ctx.fillRect(x+4+kick,y+17,6,13);
-  ctx.fillStyle='#eee8cf';ctx.fillRect(x-11-kick,y+28,9,4);ctx.fillRect(x+4+kick,y+28,9,4);
-  ctx.fillStyle=keeper?'#e5c34c':kit[0];ctx.fillRect(x-12,y-7,25,19);
-  ctx.fillStyle=keeper?'#f4e5a1':kit[1];ctx.fillRect(x-16,y-5,5,14);ctx.fillRect(x+13,y-5,5,14);
-  ctx.fillStyle='rgba(255,255,255,.22)';ctx.fillRect(x-2,y-6,4,17);
-  ctx.fillStyle='#d7ad80';ctx.fillRect(x-5,y-19,11,12);ctx.fillStyle='#24221e';ctx.fillRect(x-5,y-21,11,4);
-  ctx.fillStyle='#fff8df';ctx.font='bold 9px monospace';ctx.textAlign='center';ctx.fillText(String(n),x,y+5);
+ const m=lastReport?.mine||{},homeKit=kits[m.home]||['#2456b8','#f3eee0'],awayKit=kits[m.away]||['#eee9d2','#202020'];
+ // Slim, side-on pixel footballers. They face the direction of play, not the viewer.
+ function brick(x,footY,kit,n,facing=1,step=0,keeper=false){
+  x=Math.round(x);footY=Math.round(footY);const stride=(step%2)?2:0,dir=facing>=0?1:-1;
+  ctx.fillStyle='rgba(18,55,20,.42)';ctx.fillRect(x-5,footY+1,12,3);
+  // Back leg and front leg, staggered in the direction the player is facing.
+  ctx.fillStyle='#171915';ctx.fillRect(x-2,footY-8,3,8);ctx.fillRect(x+1+dir*stride,footY-8,3,8);
+  ctx.fillStyle='#eee8cf';ctx.fillRect(x-2,footY-1,4,2);ctx.fillRect(x+1+dir*stride,footY-1,5,2);
+  // Narrow shorts and shirt, with one arm leading forward.
+  ctx.fillStyle=kit[1];ctx.fillRect(x-3,footY-12,7,4);
+  ctx.fillStyle=keeper?'#e5c34c':kit[0];ctx.fillRect(x-3,footY-21,7,9);
+  ctx.fillStyle=kit[1];ctx.fillRect(x+dir*3,footY-19,2,7);ctx.fillRect(x-dir*4,footY-19,2,6);
+  // Small head with a single pixel eye on the forward-facing side.
+  ctx.fillStyle='#d7ad80';ctx.fillRect(x-2,footY-27,6,6);ctx.fillStyle='#24221e';ctx.fillRect(x-2,footY-28,6,2);
+  ctx.fillStyle='#1c1b18';ctx.fillRect(dir>0?x+2:x-2,footY-25,1,1);
+  // Tiny shirt number on the rear edge, never a front-facing chest badge.
+  ctx.fillStyle='#fff8df';ctx.font='bold 5px monospace';ctx.textAlign='center';ctx.fillText(String(n),x,footY-15);
  }
  const t=Math.max(0,Math.min(1,progress));
- const homeBase=[[95,305],[165,250],[235,315],[300,230],[360,300],[410,205],[465,285],[520,225]];
- const awayBase=[[120,165],[205,195],[280,145],[350,180],[420,145],[475,185],[525,205],[555,255]];
- let path=event?(event._ballPath||makeBallPath(event)):null;
- let ballX=120,ballY=245;
- if(path&&path.length>1){let scaled=t*(path.length-1),seg=Math.min(path.length-2,Math.floor(scaled)),u=scaled-seg;let a=path[seg],b=path[seg+1];ballX=a[0]+(b[0]-a[0])*u;ballY=a[1]+(b[1]-a[1])*u;}
- // Both sides make small, slower positional adjustments around the moving ball.
- homeBase.forEach((p,i)=>{let chase=[1,3,4,5,6].includes(i),targetX=chase?Math.min(550,ballX-35+(i%3)*12):p[0];let x=p[0]+(targetX-p[0])*(t*.24)+Math.sin(t*4+i)*2.5,y=p[1]+(ballY-p[1])*(t*.12)+Math.sin(t*4.2+i*1.3)*3;brick(x,y,homeKit,i+1,Math.floor(t*6+i));});
- awayBase.forEach((p,i)=>{let chase=[1,2,4,5,6].includes(i),targetX=chase?Math.max(90,ballX+28-(i%3)*10):p[0];let x=p[0]+(targetX-p[0])*(t*.20)+Math.sin(t*3.6+i)*2.5,y=p[1]+(ballY-p[1])*(t*.10)+Math.cos(t*3.8+i)*3;brick(x,y,awayKit,i+1,Math.floor(t*5+i));});
- brick(583,233,['#e5c34c','#202020'],1,Math.floor(t*5),true);
- let bob=phase==='idle'?0:Math.sin(t*18)*1.1;
- if(event?.type==='goal'&&t>.91){ballX=610;ballY=233}
- if(event?.type==='miss'&&t>.9&&event.shot==='saved'){ballX=572;ballY=233}
- ctx.fillStyle='#fffef0';ctx.fillRect(Math.round(ballX-4),Math.round(ballY-4+bob),8,8);ctx.strokeStyle='#242820';ctx.lineWidth=1;ctx.strokeRect(Math.round(ballX-4),Math.round(ballY-4+bob),8,8);
- if(t>.9&&event?.type==='goal'){ctx.fillStyle='#f7ed76';ctx.font='bold 25px monospace';ctx.textAlign='center';ctx.fillText('GOAL!',320,115);for(let i=0;i<18;i++){ctx.fillStyle=i%2?'#fff2a5':'#f5d66d';ctx.fillRect(285+(i*17)%90,132+(i*13)%36,4,4)}}
- if(t>.9&&event?.type==='miss'){ctx.fillStyle='#fff2a5';ctx.font='bold 20px monospace';ctx.textAlign='center';ctx.fillText(event.shot==='saved'?'SAVED!':'JUST WIDE!',320,115)}
+ const route=event?(event._ballPath||makeBallPath(event)):null;
+ const attackSide=route?.attackSide||'home',attackKit=attackSide==='home'?homeKit:awayKit,defendKit=attackSide==='home'?awayKit:homeKit;
+ const baseAttack=[{x:105,y:302},{x:170,y:248},{x:235,y:320},{x:300,y:228},{x:365,y:300},{x:425,y:205},{x:485,y:285},{x:525,y:225}];
+ const baseDefend=[[135,160],[215,195],[285,145],[355,180],[425,145],[480,185],[535,205]];
+ let ballX=110,ballY=285,carrier=null,activePlayer=null;
+ if(route&&route.players.length){
+  const players=route.players,steps=route.steps;let step=steps.find(s=>t>=s.t0&&t<=s.holdEnd)||steps[steps.length-1];
+  if(step){let from=players[step.from],to=step.to===null?step.target:players[step.to];let u=t<=step.t1?Math.max(0,Math.min(1,(t-step.t0)/(step.t1-step.t0))):1;
+   // Ease the ball in flight, then let it settle visibly at the receiver's boot.
+   const eased=u*u*(3-2*u);ballX=from.x+7+(to.x+7-(from.x+7))*eased;ballY=from.y-3+(to.y-3-(from.y-3))*eased;
+   if(step.kind==='pass'&&t>=step.t1){ballX=to.x+7;ballY=to.y-3;carrier=step.to;}
+   else if(step.kind==='shot'&&t>=step.t1){ballX=to.x;ballY=to.y;}
+   activePlayer=step.to===null?step.from:(t<step.t1?step.from:step.to);
+  }
+ }
+ // Draw supporting attackers in slim profile. Route receivers occupy their real positions.
+ const routePlayers=route?.players||[];const attackPositions=routePlayers.length?routePlayers:baseAttack;
+ attackPositions.forEach((p,i)=>{let moving=(activePlayer===i||carrier===i);let x=p.x+(moving&&t<1?Math.sin(t*10+i)*1.2:0),y=p.y+(moving&&t<1?Math.sin(t*8+i)*1.2:0);brick(x,y,attackKit,i+1,1,Math.floor(t*4+i));});
+ // Opponents are narrower too and face left, towards the attacking side.
+ baseDefend.forEach((p,i)=>{let x=p[0],y=p[1];brick(x,y,defendKit,i+1,-1,Math.floor(t*3+i));});
+ // Goalkeeper faces the incoming ball.
+ brick(582,236,['#e5c34c','#202020'],1,-1,Math.floor(t*4),true);
+ // Square ball: exactly at the receiving player's feet between passes.
+ const bob=phase==='idle'?0:Math.sin(t*22)*.45;
+ ctx.fillStyle='#fffef0';ctx.fillRect(Math.round(ballX-3),Math.round(ballY-3+bob),6,6);ctx.strokeStyle='#242820';ctx.lineWidth=1;ctx.strokeRect(Math.round(ballX-3),Math.round(ballY-3+bob),6,6);
+ if(t>.91&&event?.type==='goal'){ctx.fillStyle='#f7ed76';ctx.font='bold 25px monospace';ctx.textAlign='center';ctx.fillText('GOAL!',320,115);for(let i=0;i<18;i++){ctx.fillStyle=i%2?'#fff2a5':'#f5d66d';ctx.fillRect(285+(i*17)%90,132+(i*13)%36,4,4)}}
+ if(t>.91&&event?.type==='miss'){ctx.fillStyle='#fff2a5';ctx.font='bold 20px monospace';ctx.textAlign='center';ctx.fillText(event.shot==='saved'?'SAVED!':'JUST WIDE!',320,115)}
 }
-function drawPlayer(ctx,x,y,n,color){ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,10,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#132016';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#102016';ctx.font='bold 9px Courier New';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(n),x,y+.5)}
 function updateLiveScore(){let goals=lastReport.events.filter(e=>e.type==='goal'&&e._shown);let h=0,a=0;goals.forEach(e=>{if(e.side==='home')h++;else a++});let el=$('liveScore');if(el)el.textContent=h+' - '+a}
 function appendLiveLine(e){let box=$('liveCommentary');if(!box)return;let p=document.createElement('p');p.className=e.type==='goal'?'goal':e.type==='miss'?'miss':e.type==='whistle'?'whistle':'';p.innerHTML=`<b>${String(e.minute).padStart(2,'0')}'</b> ${esc(e.text)}`;box.appendChild(p);box.scrollTop=box.scrollHeight;let minute=$('liveMinute');if(minute)minute.textContent=String(e.minute).padStart(2,'0')+' MINUTES';}
 async function runScene(event,token,index,total){
