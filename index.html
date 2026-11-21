@@ -6,7 +6,7 @@
 <title>Touchline Manager</title>
 <style>
 :root{--bg:#101b16;--panel:#182820;--line:#42604b;--green:#9bd66b;--cream:#e5e2c6;--muted:#a8b39e;--red:#e28b72;--gold:#e4ca72;--blue:#8eb8d8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:'Courier New',monospace;font-size:14px;line-height:1.45}.wrap{max-width:820px;margin:auto;padding:10px}.mast{border:2px solid var(--green);padding:12px;text-align:center;background:#0b130f}.mast h1{font-size:clamp(23px,6vw,36px);letter-spacing:2px;color:var(--green);margin:0}.mast small{color:var(--muted);letter-spacing:3px}.scorebar{display:flex;justify-content:space-between;gap:5px;flex-wrap:wrap;margin:9px 0;padding:9px;border:1px solid var(--line);background:#142119;color:var(--green);font-weight:bold}.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:9px 0}.tabs button,button{font: bold 12px 'Courier New';border:1px solid var(--green);background:#1c3024;color:var(--cream);padding:10px 5px;cursor:pointer}.tabs button.active,button.primary{background:var(--green);color:#102015}button:disabled{opacity:.35}.panel{border:1px solid var(--line);background:var(--panel);padding:12px;margin:9px 0}.panel h2{font-size:16px;color:var(--green);margin:0 0 9px;border-bottom:1px dashed var(--line);padding-bottom:7px}.muted{color:var(--muted)}.big{font-size:22px;color:var(--gold);font-weight:bold}.row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dotted #3a5141}.row:last-child{border:0}.btnrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:105px}.table{width:100%;border-collapse:collapse;font-size:11px}.table th,.table td{text-align:right;padding:6px 3px;border-bottom:1px solid var(--line);white-space:nowrap}.table th:first-child,.table td:first-child{text-align:left;white-space:normal}.table th{color:var(--green)}.table tr.you{color:var(--gold);font-weight:bold}.player{display:grid;grid-template-columns:minmax(0,1fr) 42px 55px;gap:5px;padding:7px 0;border-bottom:1px dotted var(--line);align-items:center}.player button{padding:5px}.player small{color:var(--muted);display:block}.notice{color:var(--gold);padding:8px;border:1px dashed var(--gold);margin-top:8px}.good{color:var(--green)}.bad{color:var(--red)}.hidden{display:none}.footer{text-align:center;color:#728477;font-size:11px;padding:15px}.clubgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.club{padding:12px;text-align:left}.club strong{display:block;color:var(--green)}.club span{font-size:11px;color:var(--muted)}.pill{display:inline-block;border:1px solid var(--line);padding:2px 6px;color:var(--muted);font-size:11px}.commentary{background:#0d1711;border:1px solid var(--line);padding:9px;max-height:270px;overflow:auto}.commentary p{margin:5px 0;padding:7px 6px;border-bottom:1px dotted #314638}.commentary p.goal{color:var(--green);font-weight:bold;background:#14251a}.commentary p.miss{color:var(--gold)}.commentary p.whistle{color:var(--muted);font-style:italic}.soundrow{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.soundrow button{flex:1;min-width:125px}.matchstage{background:#0b1710;border:1px solid var(--line);padding:8px;margin:8px 0}.matchstage canvas{display:block;width:100%;height:auto;aspect-ratio:640/420;background:#183d25;border:1px solid #71915a}.matchcaption{min-height:24px;color:var(--gold);text-align:center;padding:6px 2px;font-weight:bold}.incidentbuttons{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}.incidentbuttons button{flex:1;min-width:100px}.pitchhint{font-size:11px;color:var(--muted);text-align:center}.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.stat{background:#122019;padding:8px;border:1px solid var(--line)}.stat b{display:block;color:var(--gold);font-size:18px}.selectline{width:100%;padding:9px;background:#102018;color:var(--cream);border:1px solid var(--line);font:13px 'Courier New'}.smallbtn{padding:5px 7px}.marketitem{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 0;border-bottom:1px dotted var(--line)}.end{text-align:center;padding:15px;color:var(--gold)}@media(min-width:600px){.twocol{display:grid;grid-template-columns:1fr 1fr;gap:9px}}
-</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE</small></header><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · TOUCHLINE MANAGER · OFFLINE EDITION · V13 DIRECTION & MOVEMENT FIX</div></div>
+</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE</small></header><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · TOUCHLINE MANAGER · OFFLINE EDITION · V14 REALISTIC 8-BIT MATCH ENGINE</div></div>
 <script>
 'use strict';
 const CLUBS=[['AFC Albion',68,22000],['Bristol Rovers',65,18000],['Cwm Valley',61,14000],['Dunford Town',60,13000],['Eastborough',58,12000],['Fleet Athletic',57,11000],['Glenchester',55,10000],['Haversham',53,9000]];
@@ -135,43 +135,55 @@ function beginMatchPresentation(){playOneSound('whistle')}
 let incidentTimer=null,animationToken=0;
 function resetPitch(){animationToken++;if(incidentTimer)clearTimeout(incidentTimer);drawPitchFrame(0,null);let c=$('matchCaption');if(c)c.textContent='READY FOR THE HIGHLIGHTS'}
 function makeBallPath(event){
- // Build a fresh, player-to-player move for every incident. Each receiving
- // player moves into the passing lane; the ball settles at their boot before
- // the next kick. Direction reverses after half-time.
+ // V14: a player-to-player match sequence. Players have fixed starting
+ // positions; receivers make short, timed runs and the ball arrives at boots.
  const rand=(a,b)=>a+Math.random()*(b-a);
  const secondHalf=(event.minute||0)>45;
  const side=event.side|| (Math.random()<.5?'home':'away');
  const attacksRight=(side==='home')!==secondHalf;
- const ids=[0,1,2,3,4,5,6].sort(()=>Math.random()-.5).slice(0,3+Math.floor(Math.random()*2));
- const lanes=[165,205,245,285,325,185,305];
- let q=rand(.12,.24), lane=lanes[ids[0]]+rand(-8,8);
- const nodes=[{player:ids[0],q,y:lane}];
- for(let i=1;i<ids.length;i++){
-   q=Math.max(.18,Math.min(.88,q+rand(.055,.135)));
-   // Keep the move varied but generally progressive; an occasional short
-   // lay-off/back pass is allowed instead of every attack travelling in a line.
-   if(Math.random()<.22) q=Math.max(.14,q-rand(.025,.07));
-   lane=Math.max(150,Math.min(340,lane+rand(-48,48)));
-   nodes.push({player:ids[i],q,y:lane});
+ const attackBase=[
+  {x:112,y:292},{x:170,y:215},{x:218,y:326},{x:265,y:178},
+  {x:312,y:278},{x:365,y:210},{x:408,y:310}
+ ];
+ const defendBase=[
+  {x:350,y:165},{x:405,y:225},{x:430,y:315},{x:465,y:180},
+  {x:485,y:270},{x:520,y:325},{x:535,y:235}
+ ];
+ // Pick 3-5 distinct receivers, but choose from the formation rather than
+ // teleporting players across the pitch.
+ let picks=[];let pool=[0,1,2,3,4,5,6];
+ const count=3+Math.floor(Math.random()*3);
+ while(picks.length<count){let k=Math.floor(Math.random()*pool.length);picks.push(pool.splice(k,1)[0]);}
+ let nodes=[];
+ let first=picks[0],firstPos=attackBase[first];
+ nodes.push({player:first,x:firstPos.x,y:firstPos.y});
+ for(let i=1;i<picks.length;i++){
+  let id=picks[i],base=attackBase[id],prev=nodes[nodes.length-1];
+  // Receiver checks a few pixels towards the ball, with a modest forward run.
+  let toward=attacksRight?1:-1;
+  let tx=base.x+toward*rand(5,18),ty=base.y+rand(-12,12);
+  tx=Math.max(90,Math.min(535,tx));ty=Math.max(145,Math.min(345,ty));
+  nodes.push({player:id,x:tx,y:ty});
  }
- const steps=[];let cursor=0;
+ let steps=[],cursor=0;
  for(let i=0;i<nodes.length-1;i++){
-   const travel=rand(1.75,2.45),hold=rand(.85,1.25);
-   steps.push({from:i,to:i+1,t0:cursor,t1:cursor+travel,holdEnd:cursor+travel+hold,kind:'pass'});
-   cursor+=travel+hold;
+  let a=nodes[i],b=nodes[i+1],dist=Math.hypot(b.x-a.x,b.y-a.y);
+  let travel=Math.max(1.45,Math.min(3.8,dist/48));
+  let hold=rand(.65,1.05);
+  steps.push({from:i,to:i+1,t0:cursor,t1:cursor+travel,holdEnd:cursor+travel+hold,kind:'pass'});
+  cursor+=travel+hold;
  }
- const finalType=event.type;
- if(finalType==='goal'||finalType==='miss'){
-   const y=finalType==='goal'?rand(222,268):event.shot==='saved'?rand(232,258):(Math.random()<.5?rand(165,195):rand(300,335));
-   const shotEnd=cursor+rand(1.65,2.15);
-   steps.push({from:nodes.length-1,to:null,target:{q:finalType==='miss'&&event.shot==='saved'?.97:1.04,y},t0:cursor,t1:shotEnd,holdEnd:shotEnd,kind:'shot'});
-   cursor=steps[steps.length-1].t1;
+ let last=nodes[nodes.length-1];
+ if(event.type==='goal'||event.type==='miss'){
+  let goalY=rand(222,268),targetX=attacksRight?604:36;
+  let targetY=event.type==='goal'?goalY:(event.shot==='saved'?rand(230,260):(Math.random()<.5?rand(165,195):rand(300,335)));
+  let dist=Math.hypot(targetX-last.x,targetY-last.y),shotTime=Math.max(1.6,Math.min(3.4,dist/58));
+  steps.push({from:nodes.length-1,to:null,target:{x:targetX,y:targetY},t0:cursor,t1:cursor+shotTime,holdEnd:cursor+shotTime,kind:'shot'});cursor+=shotTime;
  }else{
-   const last=nodes[nodes.length-1];
-   steps.push({from:nodes.length-1,to:null,target:{q:Math.min(.94,last.q+.045),y:last.y+rand(-14,14)},t0:cursor,t1:cursor+1.65,holdEnd:cursor+1.65,kind:'carry'});
-   cursor=steps[steps.length-1].t1;
+  let tx=Math.max(90,Math.min(550,last.x+(attacksRight?1:-1)*rand(12,24)));
+  steps.push({from:nodes.length-1,to:null,target:{x:tx,y:last.y+rand(-8,8)},t0:cursor,t1:cursor+1.4,holdEnd:cursor+1.4,kind:'carry'});cursor+=1.4;
  }
- event._scene={nodes,steps,total:cursor,attacksRight,side,secondHalf,seed:Math.random()};
+ event._scene={nodes,steps,total:cursor,attacksRight,side,secondHalf,attackBase,defendBase,seed:Math.random()};
  return event._scene;
 }
 function drawPitchFrame(progress,event,phase='attack'){
@@ -182,33 +194,34 @@ function drawPitchFrame(progress,event,phase='attack'){
  const secondHalf=scene?scene.secondHalf:((event?.minute||0)>45);
  const attacksRight=scene?scene.attacksRight:!secondHalf;
  const X=x=>attacksRight?x:w-x;
- // Crowd and Touchline Manager hoarding.
+ // Crowd and unmistakable Touchline Manager hoarding.
  ctx.fillStyle='#202c4d';ctx.fillRect(0,0,w,52);
  const crowd=['#d6d18b','#547b57','#9a9a80','#3e5a48','#b8b58c','#6e7e65','#c3a96b','#b35c61','#6384b7'];
  for(let row=0;row<5;row++)for(let col=0;col<160;col++){ctx.fillStyle=crowd[(col*17+row*29)%crowd.length];ctx.fillRect(col*4+(row%2)*2,4+row*9,3,5)}
- ctx.fillStyle='#e8df62';ctx.fillRect(0,52,w,34);ctx.fillStyle='#713c43';ctx.font='bold 27px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('TOUCHLINE MANAGER',w/2,69);
- // Pitch and subtle raster lines.
- ctx.fillStyle='#4b9b3e';ctx.fillRect(0,86,w,294);
- for(let y=88;y<380;y+=7){ctx.fillStyle='rgba(230,245,170,.045)';ctx.fillRect(0,y,w,1)}
+ ctx.fillStyle='#eee56a';ctx.fillRect(0,52,w,34);ctx.fillStyle='#713c43';ctx.font='bold 27px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('TOUCHLINE MANAGER',w/2,69);
+ // Rectangular pitch with a subtle raster texture, matching the approved C64 look.
+ ctx.fillStyle='#4b9b3e';ctx.fillRect(18,86,604,294);
+ for(let y=88;y<380;y+=7){ctx.fillStyle='rgba(230,245,170,.045)';ctx.fillRect(18,y,604,1)}
  ctx.strokeStyle='#f4f0dc';ctx.lineWidth=3;ctx.lineCap='square';ctx.lineJoin='miter';
- ctx.beginPath();ctx.moveTo(X(18),88);ctx.lineTo(X(18),378);ctx.lineTo(X(638),378);ctx.stroke();
- // 3-D perspective penalty area. All corners are calculated from the same
- // goal-line and mouth coordinates, so the two boxes cannot drift apart.
- const gx=575,gy1=205,gy2=285,back=628;
- const outer=[ [385,145],[500,145],[gx,gy1],[gx,gy2],[500,345],[385,345] ];
- const inner=[ [485,190],[540,190],[gx,226],[gx,264],[540,300],[485,300] ];
- function poly(points){ctx.beginPath();points.forEach((p,i)=>{let x=X(p[0]);if(i===0)ctx.moveTo(x,p[1]);else ctx.lineTo(x,p[1])});ctx.closePath();ctx.stroke()}
- // Soft shadow under the white lines gives the markings a raised, 3D edge.
- ctx.strokeStyle='rgba(20,65,25,.65)';ctx.lineWidth=6;poly(outer);poly(inner);
- ctx.strokeStyle='#f4f0dc';ctx.lineWidth=3;poly(outer);poly(inner);
- // Penalty spot and D, mirrored with the attacking direction.
- ctx.fillStyle='#f4f0dc';ctx.fillRect(X(438)-2,242,4,4);ctx.beginPath();ctx.arc(X(440),244,27,attacksRight?-1.22:Math.PI-1.22,attacksRight?1.22:Math.PI+1.22);ctx.stroke();
- // Goal frame with visible side depth and netting (pseudo-3D).
- ctx.strokeStyle='rgba(20,65,25,.75)';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(X(gx),gy1);ctx.lineTo(X(back),194);ctx.lineTo(X(back),296);ctx.lineTo(X(gx),gy2);ctx.stroke();
- ctx.strokeStyle='#f4f0dc';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(X(gx),gy1);ctx.lineTo(X(back),194);ctx.lineTo(X(back),296);ctx.lineTo(X(gx),gy2);ctx.stroke();
- ctx.lineWidth=1;ctx.strokeStyle='rgba(245,244,225,.8)';
- for(let i=1;i<8;i++){let xx=gx+(back-gx)*i/8;ctx.beginPath();ctx.moveTo(X(xx),gy1+(194-gy1)*i/8);ctx.lineTo(X(xx),gy2+(296-gy2)*i/8);ctx.stroke()}
- for(let i=1;i<7;i++){let yy=gy1+(gy2-gy1)*i/7;let yyBack=194+(296-194)*i/7;ctx.beginPath();ctx.moveTo(X(gx),yy);ctx.lineTo(X(back),yyBack);ctx.stroke()}
+ ctx.beginPath();ctx.moveTo(X(18),88);ctx.lineTo(X(18),378);ctx.lineTo(X(622),378);ctx.stroke();
+ // Perspective penalty area: one connected polygon meeting the goal line.
+ // The outer and inner boxes share the exact same goal-line coordinate.
+ const goalX=565,goalTop=207,goalBottom=283,goalBack=615;
+ const outer=[[380,145],[493,145],[goalX,goalTop],[goalX,goalBottom],[493,345],[380,345]];
+ const inner=[[474,190],[526,190],[goalX,222],[goalX,268],[526,300],[474,300]];
+ function pathPoly(points){ctx.beginPath();points.forEach((p,i)=>{const x=X(p[0]);if(i===0)ctx.moveTo(x,p[1]);else ctx.lineTo(x,p[1])});ctx.closePath()}
+ // Dark offset first, then cream pixel line: subtle raised 3D edge.
+ ctx.strokeStyle='rgba(17,55,24,.72)';ctx.lineWidth=7;pathPoly(outer);ctx.stroke();pathPoly(inner);ctx.stroke();
+ ctx.strokeStyle='#f4f0dc';ctx.lineWidth=3;pathPoly(outer);ctx.stroke();pathPoly(inner);ctx.stroke();
+ // Penalty spot and D sit outside the outer box, aligned to its centre.
+ ctx.fillStyle='#f4f0dc';ctx.fillRect(X(505)-2,243,4,4);
+ ctx.beginPath();ctx.arc(X(505),245,31,attacksRight?Math.PI/2:Math.PI*1.5,attacksRight?Math.PI*1.5:Math.PI/2,false);ctx.stroke();
+ // Goal: front posts on the goal line, depth rails, crossbar and net grid.
+ ctx.strokeStyle='rgba(16,48,20,.85)';ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(X(goalX),goalTop);ctx.lineTo(X(goalBack),195);ctx.lineTo(X(goalBack),295);ctx.lineTo(X(goalX),goalBottom);ctx.stroke();
+ ctx.strokeStyle='#f7f1df';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(X(goalX),goalTop);ctx.lineTo(X(goalBack),195);ctx.lineTo(X(goalBack),295);ctx.lineTo(X(goalX),goalBottom);ctx.moveTo(X(goalX),goalTop);ctx.lineTo(X(goalX),goalBottom);ctx.stroke();
+ ctx.lineWidth=1;ctx.strokeStyle='rgba(247,241,223,.82)';
+ for(let i=1;i<8;i++){let u=i/8,xx=goalX+(goalBack-goalX)*u,yt=goalTop+(195-goalTop)*u,yb=goalBottom+(295-goalBottom)*u;ctx.beginPath();ctx.moveTo(X(xx),yt);ctx.lineTo(X(xx),yb);ctx.stroke()}
+ for(let i=1;i<7;i++){let u=i/7,yy=goalTop+(goalBottom-goalTop)*u,yyb=195+(295-195)*u;ctx.beginPath();ctx.moveTo(X(goalX),yy);ctx.lineTo(X(goalBack),yyb);ctx.stroke()}
  // Score strip.
  const shownGoals=lastReport?.events?.filter(e=>e.type==='goal'&&e._shown)||[];
  const sh=shownGoals.filter(e=>e.side==='home').length,sa=shownGoals.filter(e=>e.side==='away').length;
@@ -218,7 +231,6 @@ function drawPitchFrame(progress,event,phase='attack'){
  const m=lastReport?.mine||{},homeKit=kits[m.home]||['#2456b8','#f3eee0'],awayKit=kits[m.away]||['#eee9d2','#202020'];
  const t=Math.max(0,Math.min(1,progress)),now=scene?t*scene.total:0;
  const dir=attacksRight?1:-1;
- // Slim side-on 8-bit footballers. Head, torso, arms and boots all face play.
  function sprite(x,footY,kit,num,face,frame,keeper=false){
   x=Math.round(x);footY=Math.round(footY);let phase=Math.floor(frame)%4;let swing=[-2,1,2,-1][phase];
   ctx.fillStyle='rgba(20,55,20,.35)';ctx.fillRect(x-6,footY+1,13,3);
@@ -230,59 +242,49 @@ function drawPitchFrame(progress,event,phase='attack'){
   ctx.fillStyle='#d7ad80';ctx.fillRect(x+(face>0?1:-5),footY-31,6,6);ctx.fillStyle='#24221e';ctx.fillRect(x+(face>0?4:-5),footY-29,1,1);
   ctx.fillStyle='#fff8df';ctx.font='bold 6px monospace';ctx.textAlign='center';ctx.fillText(String(num),x,footY-16);
  }
- const base=[{q:.10,y:300},{q:.22,y:225},{q:.34,y:320},{q:.46,y:195},{q:.58,y:285},{q:.70,y:215},{q:.78,y:320}];
- const defenders=[{q:.42,y:165},{q:.52,y:235},{q:.62,y:315},{q:.68,y:185},{q:.78,y:270},{q:.86,y:325},{q:.90,y:235}];
- const active=scene?scene.steps.find(st=>now>=st.t0&&now<=st.holdEnd)||scene.steps[scene.steps.length-1]:null;
- let ballX=X(115),ballY=285,carrier=scene?.nodes?.[0]?.player??0;
- let nodePositions=[];
+ const attackBase=scene?.attackBase||[{x:112,y:292},{x:170,y:215},{x:218,y:326},{x:265,y:178},{x:312,y:278},{x:365,y:210},{x:408,y:310}];
+ const defendBase=scene?.defendBase||[{x:350,y:165},{x:405,y:225},{x:430,y:315},{x:465,y:180},{x:485,y:270},{x:520,y:325},{x:535,y:235}];
+ let ballX=X(attackBase[0].x),ballY=attackBase[0].y-3,active=scene?scene.steps.find(st=>now>=st.t0&&now<=st.holdEnd):null;
+ let nodePos=[];
  if(scene){
-   scene.nodes.forEach((node,i)=>{
-     const incoming=scene.steps.find(st=>st.to===i);
-     const outgoing=scene.steps.find(st=>st.from===i);
-     const targetX=90+node.q*470, start=base[node.player];
-     let sx=90+start.q*470,sy=start.y,ex=targetX,ey=node.y;
-     let u=0;
-     if(incoming){u=Math.max(0,Math.min(1,(now-incoming.t0)/Math.max(.01,incoming.t1-incoming.t0)));if(now>=incoming.holdEnd)u=1;}
-     else if(i===0)u=1;
-     const ease=u*u*(3-2*u);let px=sx+(ex-sx)*ease,py=sy+(ey-sy)*ease;
-     // After releasing the ball, the player moves a few pixels into support.
-     if(outgoing&&now>outgoing.t1){let drift=Math.min(1,(now-outgoing.t1)/1.1);px+=dir*drift*7;py+=Math.sin(now*2+i)*2;}
-     nodePositions[node.player]={x:X(px),y:py};
-   });
-   if(active){
-     const from=scene.nodes[active.from],to=active.to===null?active.target:scene.nodes[active.to];
-     const x1=X(90+from.q*470)+dir*5,y1=from.y-3;
-     const x2=X(90+to.q*470)+dir*5,y2=to.y-3;
-     const u=Math.max(0,Math.min(1,(now-active.t0)/Math.max(.01,active.t1-active.t0)));
-     const e=u*u*(3-2*u);let q=x1+(x2-x1)*e,y=y1+(y2-y1)*e;
-     if(now>active.t1&&active.to!==null){q=x2;y=y2;carrier=to.player;}
-     else carrier=from.player;
-     // q is already in canvas/screen coordinates: x1 and x2 were mirrored
-     // above. Mirroring it a second time sent the ball away from the goal.
-     ballX=q;ballY=y;
-   }
+  scene.nodes.forEach((node,i)=>{
+   const incoming=scene.steps.find(st=>st.to===i);
+   let bx=attackBase[node.player],u=0;
+   if(incoming)u=Math.max(0,Math.min(1,(now-incoming.t0)/Math.max(.01,incoming.t1-incoming.t0)));
+   else u=0;
+   // Receiver moves a short, physically plausible distance while the ball travels.
+   const ease=u*u*(3-2*u);nodePos[node.player]={x:bx.x+(node.x-bx.x)*ease,y:bx.y+(node.y-bx.y)*ease};
+  });
+  if(active){
+   const a=scene.nodes[active.from],b=active.to===null?active.target:scene.nodes[active.to];
+   const u=Math.max(0,Math.min(1,(now-active.t0)/Math.max(.01,active.t1-active.t0))),e=u*u*(3-2*u);
+   ballX=X(a.x+(b.x-a.x)*e);ballY=a.y+(b.y-a.y)*e-3;
+  }else if(now>=scene.total){let n=scene.nodes[scene.nodes.length-1];ballX=X(n.x);ballY=n.y-3}
  }
- // Attacking team: all seven outfield players shift and make short support runs.
- base.forEach((p,i)=>{
-  let pos=nodePositions[i],x=pos?pos.x:X(90+p.q*470),y=pos?pos.y:p.y;
-  if(!pos){let move=scene?Math.sin(now*.72+i*1.7)*7:0;x+=dir*move;y+=Math.cos(now*.68+i)*5;}
-  const isCarrier=scene&&scene.nodes.some((n,j)=>n.player===i&&active&&(active.to===j||active.from===j)&&now>=active.t0&&now<=active.holdEnd);
-  sprite(x,y,scene?((scene.side==='home')?homeKit:awayKit):homeKit,i+1,dir,now*3+i+(isCarrier?1:0));
+ // Attackers all make small, continuous support runs. Receivers move only a
+ // few pixels to meet the pass; nobody can teleport from the goal to midfield.
+ attackBase.forEach((p,i)=>{
+  let pos=nodePos[i],phase=now*1.45+i*1.8;
+  let x=pos?pos.x:p.x+Math.sin(phase)*3.5;
+  let y=pos?pos.y:p.y+Math.cos(phase*.8)*3;
+  if(scene&&pos&&now>0){let outgoing=scene.steps.find(st=>st.from===i&&now>st.t1);if(outgoing){x+=dir*Math.min(7,(now-outgoing.t1)*2);}}
+  sprite(X(x),y,scene?(scene.side==='home'?homeKit:awayKit):homeKit,i+1,dir,now*2.3+i);
  });
- // Defenders shuffle toward the ball and turn to face the attacking side.
- defenders.forEach((p,i)=>{
-  const bx=attacksRight?ballX:640-ballX;
-  const targetQ=Math.max(.36,Math.min(.93,(bx-90)/470));
-  const q=p.q+(targetQ-p.q)*.10;
-  const y=p.y+(ballY-p.y)*.075+Math.sin(now*.8+i)*2;
-  sprite(X(90+q*470),y,scene?((scene.side==='home')?awayKit:homeKit):awayKit,i+1,-dir,now*2.5+i);
+ // Defenders shuffle as a compact line and track the ball gradually, capped
+ // to a short run over the duration of the incident.
+ defendBase.forEach((p,i)=>{
+  let worldBall=attacksRight?ballX:640-ballX;
+  let desiredX=Math.max(p.x-22,Math.min(p.x+22,worldBall-35));
+  let u=scene?Math.min(1,now/3.8):0;
+  let x=p.x+(desiredX-p.x)*u*.55+Math.sin(now*1.1+i)*2.5;
+  let y=p.y+(ballY-p.y)*.035*u+Math.cos(now*.9+i)*2.2;
+  sprite(X(x),y,scene?(scene.side==='home'?awayKit:homeKit):awayKit,i+1,-dir,now*1.9+i);
  });
- // Goalkeeper reacts along the goal line; same mirrored geometry as the goal.
- const keeperX=X(558),keeperY=245+(scene?Math.max(-13,Math.min(13,(ballY-245)*.18)):0);
- sprite(keeperX,keeperY,['#e5c34c','#202020'],1,-dir,now*3,true);
- // The square ball arrives exactly at the receiver's leading boot and pauses there.
+ const keeperX=X(555),keeperY=245+(scene?Math.max(-9,Math.min(9,(ballY-245)*.12)):0);
+ sprite(keeperX,keeperY,['#e5c34c','#202020'],1,-dir,now*2.1,true);
+ // Square ball settles at the receiving player's boots before the next kick.
  ctx.fillStyle='#fffef0';ctx.fillRect(Math.round(ballX-3),Math.round(ballY-3),6,6);ctx.strokeStyle='#242820';ctx.lineWidth=1;ctx.strokeRect(Math.round(ballX-3),Math.round(ballY-3),6,6);
- if(t>.92&&event?.type==='goal'){ctx.fillStyle='#f7ed76';ctx.font='bold 25px monospace';ctx.textAlign='center';ctx.fillText('GOAL!',320,115);for(let i=0;i<18;i++){ctx.fillStyle=i%2?'#fff2a5':'#f5d66d';ctx.fillRect(285+(i*17)%90,132+(i*13)%36,4,4)}}
+ if(t>.92&&event?.type==='goal'){ctx.fillStyle='#f7ed76';ctx.font='bold 25px monospace';ctx.textAlign='center';ctx.fillText('GOAL!',320,115)}
  if(t>.92&&event?.type==='miss'){ctx.fillStyle='#fff2a5';ctx.font='bold 20px monospace';ctx.textAlign='center';ctx.fillText(event.shot==='saved'?'SAVED!':'JUST WIDE!',320,115)}
 }
 function updateLiveScore(){let goals=lastReport.events.filter(e=>e.type==='goal'&&e._shown);let h=0,a=0;goals.forEach(e=>{if(e.side==='home')h++;else a++});let el=$('liveScore');if(el)el.textContent=h+' - '+a}
@@ -300,7 +302,7 @@ async function runScene(event,token,index,total){
  }
  if(caption)caption.textContent=event.type==='goal'?`${String(event.minute).padStart(2,'0')}' — ATTACK BUILDING`:event.type==='miss'?`${String(event.minute).padStart(2,'0')}' — CHANCE DEVELOPING`:`${String(event.minute).padStart(2,'0')}' — PLAY MOVES FORWARD`;
  if(!event._scene)makeBallPath(event);
- const duration=Math.max(8500,event._scene.total*1000);
+ const duration=Math.max(10500,event._scene.total*1000);
  await new Promise(resolve=>{let began=performance.now();function frame(now){if(token!==animationToken){resolve();return}let p=Math.min(1,(now-began)/duration);drawPitchFrame(p,event,'attack');if(p<1)requestAnimationFrame(frame);else resolve()}requestAnimationFrame(frame)});
  if(token!==animationToken)return;
  if(event.type==='goal'){event._shown=true;updateLiveScore();drawPitchFrame(1,event,'attack');if(caption)caption.textContent=`GOAL! ${event.scorer||'THE SCORER'}`;playOneSound('goal')}
