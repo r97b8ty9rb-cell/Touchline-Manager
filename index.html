@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#101b16"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icons/icon-192.svg">
-<title>Touchline Manager — V25.14</title>
+<title>Touchline Manager — V25.15</title>
 <style>
 :root{--bg:#101b16;--panel:#182820;--line:#42604b;--green:#9bd66b;--cream:#e5e2c6;--muted:#a8b39e;--red:#e28b72;--gold:#e4ca72;--blue:#8eb8d8}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font-family:'Courier New',monospace;font-size:14px;line-height:1.45}.wrap{max-width:820px;margin:auto;padding:10px}.mast{border:2px solid var(--green);padding:12px;text-align:center;background:#0b130f}.mast h1{font-size:clamp(23px,6vw,36px);letter-spacing:2px;color:var(--green);margin:0}.mast small{color:var(--muted);letter-spacing:3px}.scorebar{display:flex;justify-content:space-between;gap:5px;flex-wrap:wrap;margin:9px 0;padding:9px;border:1px solid var(--line);background:#142119;color:var(--green);font-weight:bold}.tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:9px 0}.tabs button,button{font: bold 12px 'Courier New';border:1px solid var(--green);background:#1c3024;color:var(--cream);padding:10px 5px;cursor:pointer}.tabs button.active,button.primary{background:var(--green);color:#102015}button:disabled{opacity:.35}.panel{border:1px solid var(--line);background:var(--panel);padding:12px;margin:9px 0}.panel h2{font-size:16px;color:var(--green);margin:0 0 9px;border-bottom:1px dashed var(--line);padding-bottom:7px}.muted{color:var(--muted)}.big{font-size:22px;color:var(--gold);font-weight:bold}.row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dotted #3a5141}.row:last-child{border:0}.btnrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:105px}.table{width:100%;border-collapse:collapse;font-size:11px}.table th,.table td{text-align:right;padding:6px 3px;border-bottom:1px solid var(--line);white-space:nowrap}.table th:first-child,.table td:first-child{text-align:left;white-space:normal}.table th{color:var(--green)}.table tr.you{color:var(--gold);font-weight:bold}.player{display:grid;grid-template-columns:minmax(0,1fr) 42px 55px;gap:5px;padding:7px 0;border-bottom:1px dotted var(--line);align-items:center}.player button{padding:5px}.player small{color:var(--muted);display:block}.notice{color:var(--gold);padding:8px;border:1px dashed var(--gold);margin-top:8px}.good{color:var(--green)}.bad{color:var(--red)}.hidden{display:none}.footer{text-align:center;color:#728477;font-size:11px;padding:15px}.clubgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.club{padding:12px;text-align:left}.club strong{display:block;color:var(--green)}.club span{font-size:11px;color:var(--muted)}.pill{display:inline-block;border:1px solid var(--line);padding:2px 6px;color:var(--muted);font-size:11px}.commentary{background:#0d1711;border:1px solid var(--line);padding:9px;max-height:270px;overflow:auto}.commentary p{margin:5px 0;padding:7px 6px;border-bottom:1px dotted #314638}.commentary p.goal{color:var(--green);font-weight:bold;background:#14251a}.commentary p.miss{color:var(--gold)}.commentary p.whistle{color:var(--muted);font-style:italic}.soundrow{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.soundrow button{flex:1;min-width:125px}.matchstage{background:#0b1710;border:1px solid var(--line);padding:8px;margin:8px 0}.matchstage canvas{display:block;width:100%;height:auto;aspect-ratio:640/318;background:#183d25;border:1px solid #71915a}.matchcaption{min-height:24px;color:var(--gold);text-align:center;padding:6px 2px;font-weight:bold}.incidentbuttons{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}.incidentbuttons button{flex:1;min-width:100px}.pitchhint{font-size:11px;color:var(--muted);text-align:center}.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.stat{background:#122019;padding:8px;border:1px solid var(--line)}.stat b{display:block;color:var(--gold);font-size:18px}.selectline{width:100%;padding:9px;background:#102018;color:var(--cream);border:1px solid var(--line);font:13px 'Courier New'}.smallbtn{padding:5px 7px}.marketitem{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 0;border-bottom:1px dotted var(--line)}.end{text-align:center;padding:15px;color:var(--gold)}@media(min-width:600px){.twocol{display:grid;grid-template-columns:1fr 1fr;gap:9px}}
 .halftime-overlay{position:fixed;inset:0;z-index:9999;background:rgba(5,12,8,.96);display:flex;align-items:center;justify-content:center;padding:18px}.halftime-card{width:min(100%,620px);border:3px solid var(--green);background:#101b16;padding:22px 18px;box-shadow:0 0 0 5px #17291d;text-align:center}.halftime-card h2{color:var(--gold);font-size:clamp(25px,6vw,38px);letter-spacing:3px;margin:0 0 8px}.halftime-sub{color:var(--muted);letter-spacing:2px;margin-bottom:18px}.halftime-score{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-weight:bold;color:var(--cream);font-size:clamp(17px,4vw,24px);padding:15px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}.halftime-score strong{font-size:clamp(34px,9vw,52px);color:var(--green)}.halftime-scorers{display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left;margin-top:18px}.halftime-scorers h3{font-size:13px;color:var(--green);border-bottom:1px solid var(--line);padding-bottom:6px}.halftime-scorers p{margin:6px 0;color:var(--cream);font-size:13px}.halftime-note{color:var(--muted);font-size:11px;margin-top:18px}
 .global-controls{display:flex;justify-content:flex-end;margin:8px 0}.global-controls button{font-size:12px;padding:7px 10px;border:1px solid #b58a46;background:#29251d;color:#f3d58a;border-radius:4px;cursor:pointer}
-</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE</small></header><div id="globalControls" class="global-controls"></div><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · TOUCHLINE MANAGER · OFFLINE EDITION · V25.14 · 2026/27 LEAGUES & CLUB COLOURS</div></div>
+</style></head><body><div class="wrap"><header class="mast"><h1>TOUCHLINE MANAGER</h1><small>THE 1984 FOOTBALL CHALLENGE</small></header><div id="globalControls" class="global-controls"></div><div id="app"></div><div class="footer">AN ORIGINAL RETRO FOOTBALL MANAGEMENT GAME · TOUCHLINE MANAGER · OFFLINE EDITION · V25.15 · 2026/27 LEAGUES & CLUB COLOURS</div></div>
 <script>
 'use strict';
 const CLUBS=[['AFC Albion',68,22000],['Bristol Rovers',65,18000],['Cwm Valley',61,14000],['Dunford Town',60,13000],['Eastborough',58,12000],['Fleet Athletic',57,11000],['Glenchester',55,10000],['Haversham',53,9000]];
@@ -352,7 +352,7 @@ function clearSoundTimers(){soundTimers.forEach(t=>clearTimeout(t));soundTimers=
 function scheduleSceneKicks(scene,token,duration){clearSoundTimers();if(!scene||!scene.steps)return;scene.steps.filter(step=>step.kind==='pass'||step.kind==='shot').forEach(step=>{let delay=Math.max(0,Math.round(step.t0/Math.max(.01,scene.total)*duration));soundTimers.push(setTimeout(()=>{if(token===animationToken&&screenMode==='match'&&soundEnabled)playOneSound('kick')},delay))})}
 function renderMatchScreen(){
  let r=lastReport;if(!r)return;let m=r.mine;
- $('app').innerHTML=`<div class="scorebar"><span>${esc(m.home).toUpperCase()}</span><span>LIVE MATCH</span><span>${esc(m.away).toUpperCase()}</span></div><section class="panel"><h2>TOUCHLINE MANAGER · WEEK ${Math.max(1,game.week-1)}</h2><div class="matchstage"><canvas id="matchCanvas" width="1280" height="636" aria-label="1984-style pixel football match with larger team-coloured brick players and a square ball"></canvas><div id="matchCaption" class="matchcaption">THE REFEREE BLOWS HIS WHISTLE</div><div class="soundrow"><button id="soundToggle" onclick="toggleSound()">SOUND: ${soundEnabled?'ON':'OFF'}</button><button onclick="testSound()">TEST SOUND</button></div></div><div class="commentary" id="liveCommentary"><p class="whistle">KICK-OFF! ${esc(m.home)} v ${esc(m.away)}.</p></div><div class="pitchhint">TOUCHLINE MANAGER · THE MATCH PLAYS AUTOMATICALLY.</div></section>`;
+ $('app').innerHTML=`<div class="scorebar"><span>${esc(m.home).toUpperCase()}</span><span>LIVE MATCH</span><span>${esc(m.away).toUpperCase()}</span></div><section class="panel"><h2>TOUCHLINE MANAGER · WEEK ${Math.max(1,game.week-1)}</h2><div class="matchstage"><canvas id="matchCanvas" width="640" height="318" aria-label="1984-style pixel football match with larger team-coloured brick players and a square ball"></canvas><div id="matchCaption" class="matchcaption">THE REFEREE BLOWS HIS WHISTLE</div><div class="soundrow"><button id="soundToggle" onclick="toggleSound()">SOUND: ${soundEnabled?'ON':'OFF'}</button><button onclick="testSound()">TEST SOUND</button></div></div><div class="commentary" id="liveCommentary"><p class="whistle">KICK-OFF! ${esc(m.home)} v ${esc(m.away)}.</p></div><div class="pitchhint">TOUCHLINE MANAGER · THE MATCH PLAYS AUTOMATICALLY.</div></section>`;
  drawPitchFrame(0,null,'idle');startLiveHighlights();
 }
 function renderResultsScreen(){
@@ -453,12 +453,7 @@ const pitchMaster=new Image();pitchMaster.src='data:image/png;base64,iVBORw0KGgo
 pitchMaster.onload=()=>{if($('matchCanvas'))drawPitchFrame(0,null,'idle')};
 function drawPitchFrame(progress,event,phase='attack'){
  const canvas=$('matchCanvas');if(!canvas)return;
- const ctx=canvas.getContext('2d');if(!ctx)return;
- // Render at 2x backing resolution while keeping all match coordinates in
- // the original 640x318 logical space. This prevents the iPad browser from
- // enlarging a low-resolution canvas and softening the sprites and markings.
- const w=640,h=318,scale=2;
- ctx.setTransform(scale,0,0,scale,0,0);
+ const ctx=canvas.getContext('2d');if(!ctx)return;const w=canvas.width,h=canvas.height;
  ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,w,h);
  const scene=event?(event._scene||makeBallPath(event)):null;
  const direction=scene?{secondHalf:scene.secondHalf,attacksRight:scene.attacksRight}:getAttackDirection(event?.side||'home',event?.minute||0);
@@ -482,33 +477,6 @@ function drawPitchFrame(progress,event,phase='attack'){
   ctx.textAlign='center';ctx.textBaseline='middle';
   ctx.fillText('TOUCHLINE MANAGER',w/2,50);
  }else{ctx.fillStyle='#319c39';ctx.fillRect(0,0,w,285)}
- // Re-draw the goal end and the penalty-area geometry as crisp vector lines.
- // The original 640px stadium artwork clips its goal against the image edge;
- // these inset markings keep the complete 18-yard box, six-yard box and goal
- // visible on both ends of the pitch and at iPad display sizes.
- {
-  const fx=x=>attacksRight?x:w-x;
-  const strokePath=(points,width=1.8)=>{
-   ctx.beginPath();points.forEach((pt,i)=>{const x=fx(pt[0]),y=pt[1];if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});
-   ctx.strokeStyle='rgba(255,255,245,.94)';ctx.lineWidth=width;ctx.lineCap='square';ctx.lineJoin='miter';ctx.stroke();
-  };
-  // Penalty-area boundary and six-yard box, with the goal line inset.
-  strokePath([[425,98],[601,98],[601,252],[505,252]],2);
-  strokePath([[548,139],[601,139],[601,218],[565,218]],1.7);
-  // Penalty spot and the visible portion of the D.
-  ctx.fillStyle='rgba(255,255,245,.95)';
-  ctx.fillRect(fx(566)-1,178,3,3);
-  ctx.beginPath();ctx.arc(fx(566),178,30,attacksRight?Math.PI*.70:Math.PI*.30,attacksRight?Math.PI*1.30:Math.PI*.70, false);
-  ctx.strokeStyle='rgba(255,255,245,.88)';ctx.lineWidth=1.5;ctx.stroke();
-  // Full goal mouth and net, positioned just inside the pitch boundary.
-  const gx=601,gy=157,gb=213,back=631,top=164,bottom=206;
-  strokePath([[gx,gy],[back,top],[back,bottom],[gx,gb]],2);
-  strokePath([[gx,gy],[gx,gb]],2.2);
-  ctx.save();ctx.strokeStyle='rgba(255,255,245,.72)';ctx.lineWidth=.75;
-  for(let x=608;x<back;x+=5){const u=(x-gx)/(back-gx);ctx.beginPath();ctx.moveTo(fx(x),gy+(top-gy)*u);ctx.lineTo(fx(x),gb+(bottom-gb)*u);ctx.stroke()}
-  for(let y=170;y<207;y+=6){const u=(y-gy)/(gb-gy);ctx.beginPath();ctx.moveTo(fx(gx),y);ctx.lineTo(fx(back),top+(bottom-top)*u);ctx.stroke()}
-  ctx.restore();
- }
  // Score strip.
  const shownGoals=lastReport?.events?.filter(e=>e.type==='goal'&&e._shown)||[];
  const sh=shownGoals.filter(e=>e.side==='home').length,sa=shownGoals.filter(e=>e.side==='away').length;
