@@ -1,5 +1,5 @@
 'use strict';
-const CACHE_NAME = 'touchline-manager-v25-17';
+const CACHE_NAME = 'touchline-manager-v25-20';
 const APP_SHELL = [
   './',
   './index.html',
