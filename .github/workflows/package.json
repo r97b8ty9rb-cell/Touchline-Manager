@@ -1,0 +1,18 @@
+{
+  "name": "touchline-manager-android",
+  "version": "25.24.0",
+  "private": true,
+  "description": "Capacitor Android wrapper for Touchline Manager \u2014 The 1984 Football Challenge",
+  "scripts": {
+    "android:add": "npx cap add android",
+    "android:sync": "npx cap sync android",
+    "android:open": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "latest",
+    "@capacitor/core": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "latest"
+  }
+}
