@@ -1,9 +1,6 @@
+
 {
   "appId": "com.touchlinemanager.game",
   "appName": "Touchline Manager",
-  "webDir": "www",
-  "bundledWebRuntime": false,
-  "android": {
-    "allowMixedContent": false
-  }
+  "webDir": "www"
 }
