@@ -1,11 +1,12 @@
 'use strict';
-const CACHE_NAME = 'touchline-manager-v25-23';
+const CACHE_NAME = 'touchline-manager-v25-24';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
-  './icons/icon-192.svg',
-  './icons/icon-512.svg'
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './assets/stadium-master.png'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
