@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-<rect width="512" height="512" rx="88" fill="#101b16"/>
-<path d="M256 42 438 112v130c0 112-75 190-182 228C149 432 74 354 74 242V112z" fill="#1f6b43" stroke="#d5b46a" stroke-width="16"/>
-<path d="M256 118 365 160v81c0 73-43 126-109 157-66-31-109-84-109-157v-81z" fill="#f4f0df" stroke="#101b16" stroke-width="12"/>
-<path d="m256 164 30 22-12 35h-36l-12-35zM185 218l30-18 28 20-11 34-35 2zM327 218l-30-18-28 20 11 34 35 2zM220 295l36-15 36 15-8 37h-56z" fill="#101b16"/>
-<text x="256" y="402" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="700" fill="#f4f0df">TM84</text>
-</svg>
